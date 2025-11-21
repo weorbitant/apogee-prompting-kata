@@ -1,67 +1,75 @@
-# apogee-prompting-kata
+# React + TypeScript + Vite
 
-## What's apogee about
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Apogee is the ultimate karma bot for Orbiters. Designed to boost teamwork and reward positive contributions, Apogee lets users award and earn Orbitantmeters — the unique currency for tracking growth and progress.
-Recognize achievements, encourage collaboration, and foster a positive culture in your Slack workspace with simple commands like `@user ++` or `@user --` to add or subtract meters, highlighting each contribution on the team’s journey.
-You can even add your own flavour to the recognitions you make with a personalised message like `@user ++ for the amazing help with the blocker I had`
+Currently, two official plugins are available:
 
-## What's the kata about
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-The idea of this kata is to improve our prompting skills by playing around with our own Apogee data. The goal is to come up with a prompt that is capable of surfacing the "hidden gossip" behind our Apogee usage of the last week.
+## React Compiler
 
-## What you'll find in this repo
+The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
 
-### A bit of node code
+Note: This will impact Vite dev & build performances.
 
-A simple node script capable of executing a call to OpenAI to interact with one of their LLM
+## Expanding the ESLint configuration
 
-The script will have access to three different tools (methods)
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-- `getLastWeekLeaderboard()`
-- `getLasteWeekTransactions()`
-- `getTodayLeaderboard()`
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-The above mentioned tools will give some extra context to your prompt such as
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-1. the leaderboard as it was 7 days ago
-2. the leaderboard as it is right now
-3. the list of transactions (messages exchanged to give or take points) of the last 7 days
-
-To give you a quick understanding of the data would look like here is an example of them
-
-**Leaderboard**
-
-// TODO --> add example of data
-
-**Transactions**
-
-// TODO --> add example of data
-
-N.B. the tools in the code will give back some dummy data avoding to hit our Apogee DB directly during the Kata
-
-### A prompt file
-
-An empty file ready to be filled in with your own magical prompt.
-Knowing that the above tools will give your prompt access to an interesting data context is up to you to extract the hidden info from there with a well crafted prompt.
-Here is an example of a not so well crafted one, just to give you some sense of what can be done
-
-```
-Tell me the top 5 users in the leaderboard as of now and if there is anyone that was not there a week ago
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-### A way to test you prompt
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-In order to craft and test your prompt iteratively you'll have to
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-1. Install the project dependencies with `npm i`
-2. Create a `.env` file to store the OpenAI key
-3. Run the node script as many time as you want with `npm run`
-
-## What's in there for you
-
-Eternal glory, the winning prompt will become part of Apogee to be ran weekly on our bot. You have a set of interesting raw data at hand, the limit is your imagination.
-
-## Useful bits
-
-If you are new to prompting here is a 8 min amazing video that may be helpful [Master the Perfect ChatGPT Prompt Formula](https://www.youtube.com/watch?v=jC4v5AS4RIM)
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
