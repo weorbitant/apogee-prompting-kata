@@ -1,7 +1,11 @@
 import { twd, screenDom, userEvent, expect } from "twd-js";
-import { describe, it } from "twd-js/runner";
+import { describe, it, beforeEach } from "twd-js/runner";
 
 describe("App Form", () => {
+  beforeEach(() => {
+    twd.clearRequestMockRules();
+  });
+
   it("should complete the form", async () => {
     await twd.mockRequest('sendMessage', {
       method: "POST",
@@ -47,5 +51,39 @@ describe("App Form", () => {
       tools: "getLastWeekLeaderboard,getLastWeekTransactions,getTodayLeaderboard",
       prompt: "What are the most interesting insights from last week?"
     });
+  });
+
+  it("should display error when request fails", async () => {
+    await twd.mockRequest('errorRequest', {
+      method: "POST",
+      status: 500,
+      url: "/api/process",
+      response: "Internal Server Error",
+      responseHeaders: {
+        "Content-Type": "text/event-stream",
+      },
+    });
+
+    await twd.visit("/chat");
+
+    const user = userEvent.setup();
+
+    // Fill form
+    const textarea = screenDom.getByLabelText("Prompt");
+    await user.type(textarea, "Test prompt");
+
+    const tool1 = screenDom.getByLabelText("Get Last Week Leaderboard");
+    await user.click(tool1);
+
+    const submitButton = screenDom.getByRole("button", { name: "Submit" });
+    await user.click(submitButton);
+
+    // Wait for error to appear
+    const errorMessage = await screenDom.findByText(/HTTP error! status: 500/i);
+    twd.should(errorMessage, "be.visible");
+
+    // Check error heading is visible
+    const errorHeading = screenDom.getByText("Error");
+    twd.should(errorHeading, "be.visible");
   });
 });
