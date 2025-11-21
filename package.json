@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "backend:dev": "cd backend-service && npm run dev",
-    "dev:all": "npm-run-all --parallel dev backend:dev"
+    "dev:all": "npm-run-all --parallel dev backend:dev",
+    "install:backend": "cd backend-service && npm install"
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.3.3",

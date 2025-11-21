@@ -1,114 +1,73 @@
 # apogee-prompting-kata
 
-## What's apogee about
+## Requirements
 
-Apogee is the ultimate karma bot for Orbiters. Designed to boost teamwork and reward positive contributions, Apogee lets users award and earn Orbitantmeters — the unique currency for tracking growth and progress.
-Recognize achievements, encourage collaboration, and foster a positive culture in your Slack workspace with simple commands like `@user ++` or `@user --` to add or subtract meters, highlighting each contribution on the team’s journey.
-You can even add your own flavour to the recognitions you make with a personalised message like `@user ++ for the amazing help with the blocker I had`
+- **Node.js v22 or higher** is required to run this application.
 
-## What's the kata about
+## Getting Started
 
-The idea of this kata is to improve our prompting skills by playing around with our own Apogee data. The goal is to come up with a prompt that is capable of surfacing the "hidden gossip" behind our Apogee usage of the last week.
+### 1. Install Dependencies
 
-## What you'll find in this repo
-
-### A bit of node code
-
-A simple node script capable of executing a call to OpenAI to interact with one of their LLM
-
-The script will have access to three different tools (methods)
-
-- `getLastWeekLeaderboard()`
-- `getLasteWeekTransactions()`
-- `getTodayLeaderboard()`
-
-The above mentioned tools will give some extra context to your prompt such as
-
-1. the leaderboard as it was 7 days ago
-2. the leaderboard as it is right now
-3. the list of transactions (messages exchanged to give or take points) of the last 7 days
-
-To give you a quick understanding of the data would look like here is an example of them
-
-**Leaderboard**
-
-```json
-[
-  {
-    "name": "David Yusta",
-    "total": 190,
-    "rank": 1
-  },
-  {
-    "name": "Iván Esteban",
-    "total": 138,
-    "rank": 2
-  },
-  {
-    "name": "Víctor Pérez del Postigo",
-    "total": 115,
-    "rank": 3
-  },
-  {
-    "name": "Lucas Jin",
-    "total": 111,
-    "rank": 4
-  },
-  {
-    "name": "Kevin Martínez",
-    "total": 106,
-    "rank": 5
-  }
-]
+Install frontend dependencies:
+```bash
+npm install
 ```
 
-**Transactions**
-
-```json
-[
-  {
-    "message": "<@U0961UA5VT7> ++ progressing.... XXYYZZ",
-    "amount": 1,
-    "timestamp": "2025-11-21T13:34:29.280+00:00",
-    "newTotal": 191,
-    "fromName": "Víctor Pérez del Postigo",
-    "toName": "David Yusta"
-  },
-  {
-    "message": "<@U096TR7NXHU> +++ <@U09LMQM2SQ2> +++ Funcionando a la perfección! todo nominal de cara a final de año!",
-    "amount": 2,
-    "timestamp": "2025-11-21T12:23:13.662+00:00",
-    "newTotal": 138,
-    "fromName": "Víctor Pérez del Postigo",
-    "toName": "Iván Esteban"
-  }
-]
+Install backend dependencies:
+```bash
+npm run install:backend
 ```
 
-N.B. the tools in the code will give back some dummy data avoding to hit our Apogee DB directly during the Kata
-
-### A prompt file
-
-An empty file ready to be filled in with your own magical prompt.
-Knowing that the above tools will give your prompt access to an interesting data context is up to you to extract the hidden info from there with a well crafted prompt.
-Here is an example of a not so well crafted one, just to give you some sense of what can be done
-
-```
-Tell me the top 5 users in the leaderboard as of now and if there is anyone that was not there a week ago
+Or install both at once:
+```bash
+npm install && npm run install:backend
 ```
 
-### A way to test you prompt
+### 2. Configure Environment Variables
 
-In order to craft and test your prompt iteratively you'll have to
+Create a `.env` file in the `backend-service` folder with your OpenAI API key:
 
-1. Install the project dependencies with `npm i`
-2. Create a `.env` file to store the OpenAI key
-3. Run the node script as many time as you want with `npm run`
+```bash
+cd backend-service
+echo "OPENAI_API_KEY=your_openai_api_key_here" > .env
+```
 
-## What's in there for you
+**Note:** The backend service requires an OpenAI API key to function. We will share before kata starts.
 
-Eternal glory, the winning prompt will become part of Apogee to be ran weekly on our bot. You have a set of interesting raw data at hand, the limit is your imagination.
+### 3. Run the Application
 
-## Useful bits
+You can run the frontend and backend separately, or together:
 
-If you are new to prompting here is a 8 min amazing video that may be helpful [Master the Perfect ChatGPT Prompt Formula](https://www.youtube.com/watch?v=jC4v5AS4RIM)
+**Run both frontend and backend together:**
+```bash
+npm run dev:all
+```
+
+The kata app will be available at `http://localhost:5173`.
+
+> **Note:** Ports 5173 and 3000 must be free to run the application.
+
+## Testing
+
+This project uses [TWD (Test While Developing)](https://brikev.github.io/twd/) for frontend testing. The TWD test setup is currently commented out in `src/main.tsx` but can be enabled for development.
+
+To enable TWD tests, uncomment the test initialization code in `src/main.tsx`. The tests are located in the `src/twd-tests/` directory and will appear in a sidebar when running the development server.
+
+For more information about TWD, visit the [official documentation](https://brikev.github.io/twd/).
+
+## What's This About?
+
+For information about Apogee and the kata challenge, visit the landing page when you run the application. The landing page contains all the details about:
+- What Apogee is
+- What the kata is about
+- What tools are available
+- Example data structures
+
+## Scripts
+
+- `npm run dev` - Start the frontend development server
+- `npm run backend:dev` - Start the backend development server
+- `npm run dev:all` - Start both frontend and backend in parallel
+- `npm run build` - Build the frontend for production
+- `npm run lint` - Run ESLint
+- `npm run install:backend` - Install backend-service dependencies
