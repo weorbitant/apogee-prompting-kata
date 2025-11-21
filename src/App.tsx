@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -60,6 +61,11 @@ export default function App() {
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
+        <div className="mb-4">
+          <Link to="/" className="text-sm text-muted-foreground hover:text-foreground">
+            ← Back to Landing
+          </Link>
+        </div>
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl">Apogee Prompting Kata</CardTitle>
