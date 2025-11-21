@@ -37,7 +37,9 @@ export default function Landing() {
           {/* What's Apogee About */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">What's Apogee About</CardTitle>
+              <CardTitle className="text-2xl">
+                <h2>What's Apogee About</h2>
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
@@ -55,7 +57,9 @@ export default function Landing() {
           {/* What's the Kata About */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">What's the Kata About</CardTitle>
+              <CardTitle className="text-2xl">
+                <h2>What's the Kata About</h2>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <p>
@@ -67,7 +71,9 @@ export default function Landing() {
           {/* What You'll Find */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl">What You'll Find in This Repo</CardTitle>
+              <CardTitle className="text-2xl">
+                <h2>What You'll Find in This Repo</h2>
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
