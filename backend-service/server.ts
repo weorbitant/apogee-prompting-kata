@@ -23,12 +23,22 @@ app.post("/api/process", async (req: Request<{}, {}, ProcessRequestBody>, res: R
       });
     }
 
-    const result = await main(tools, prompt);
+    res.setHeader("Content-Type", "text/event-stream");
+    res.setHeader("Cache-Control", "no-cache");
+    res.setHeader("Connection", "keep-alive");
 
-    res.json({
-      success: true,
-      ...result
-    });
+    try {
+      for await (const chunk of main(tools, prompt)) {
+        res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
+      }
+      res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
+      res.end();
+    } catch (error) {
+      console.error("Error in streaming:", error);
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      res.write(`data: ${JSON.stringify({ error: errorMessage })}\n\n`);
+      res.end();
+    }
   } catch (error) {
     console.error("Error processing request:", error);
     const errorMessage = error instanceof Error ? error.message : "Unknown error";

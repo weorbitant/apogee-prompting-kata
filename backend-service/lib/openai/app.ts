@@ -35,11 +35,6 @@ interface ToolResults {
   getTodayLeaderboard?: Leaderboard[];
 }
 
-interface MainResult {
-  message: string;
-  toolResults: ToolResults;
-  toolsUsed: string[];
-}
 
 // ---- Mock DB functions ---------------------
 async function getLastWeekLeaderboard(): Promise<Leaderboard[]> {
@@ -111,26 +106,47 @@ async function callModelWithTools(
     ]
   };
 
-  const response = await client.createChatCompletion(params);
-  const choice = response.choices[0];
+  // For tool selection, we need to collect the full response, so we'll use streaming but collect it
+  const stream = await client.createChatCompletion(params);
+  let fullMessage = "";
+  let toolCalls: ToolCall[] | null = null;
 
-  if (choice.finish_reason === "tool_calls" && choice.message.tool_calls) {
-    return choice.message.tool_calls
-      .filter((call): call is Extract<typeof call, { type: "function" }> => call.type === "function")
-      .map(call => ({
-        toolName: call.function.name,
-        args: call.function.arguments ? JSON.parse(call.function.arguments) : {}
-      }));
+  for await (const chunk of stream) {
+    const delta = chunk.choices[0]?.delta;
+    if (delta?.tool_calls) {
+      // Collect tool calls from stream
+      for (const toolCall of delta.tool_calls) {
+        if (toolCall.type === "function" && toolCall.function?.name) {
+          const toolName = toolCall.function.name;
+          const existingCall = toolCalls?.find(tc => tc.toolName === toolName);
+          if (!existingCall) {
+            if (!toolCalls) toolCalls = [];
+            toolCalls.push({
+              toolName: toolName,
+              args: toolCall.function.arguments ? JSON.parse(toolCall.function.arguments) : {}
+            });
+          }
+        }
+      }
+    }
+    if (delta?.content) {
+      fullMessage += delta.content;
+    }
+  }
+
+  // If we got tool calls, return them; otherwise check if we got a message
+  if (toolCalls && toolCalls.length > 0) {
+    return toolCalls;
   }
 
   return null;
 }
 
-async function callModelToComposeMessage(
+async function* callModelToComposeMessage(
   userInput: UserInput,
   toolResults: ToolResults,
   client: OpenAIClientInterface = openAIClient
-): Promise<string> {
+): AsyncGenerator<string, void, unknown> {
   const params: ChatCompletionCreateParams = {
     model: "gpt-4.1-mini",
     messages: [
@@ -149,16 +165,18 @@ async function callModelToComposeMessage(
     ]
   };
 
-  const response = await client.createChatCompletion(params);
-  const content = response.choices[0].message.content;
-  if (!content) {
-    throw new Error("No content in response");
+  const stream = await client.createChatCompletion(params);
+  
+  for await (const chunk of stream) {
+    const content = chunk.choices[0]?.delta?.content;
+    if (content) {
+      yield content;
+    }
   }
-  return content;
 }
 
 // ---- MAIN FUNCTION ------------------------
-export async function main(tools: string, prompt: string): Promise<MainResult> {
+export async function* main(tools: string, prompt: string): AsyncGenerator<string, void, unknown> {
   const input: UserInput = {
     tools,
     prompt
@@ -173,7 +191,7 @@ export async function main(tools: string, prompt: string): Promise<MainResult> {
     throw new Error("No tools were selected by the model");
   }
 
-  console.log("\n🔧 Herramientas seleccionadas por el modelo:", toolCalls);
+  console.log("\n🔧 Herramientas seleccionadas por el modelo:");
 
   // 2. Execute the tools
   const toolResults: ToolResults = {};
@@ -189,16 +207,7 @@ export async function main(tools: string, prompt: string): Promise<MainResult> {
     }
   }
 
-  console.log("\n📊 Resultados de las tools:", toolResults);
-
-  // 3. Second call → compose final message
-  const finalMessage = await callModelToComposeMessage(input, toolResults);
-
-  // Return as JSON
-  return {
-    message: finalMessage,
-    toolResults: toolResults,
-    toolsUsed: toolCalls.map(call => call.toolName)
-  };
+  // 3. Second call → compose final message (streaming)
+  yield* callModelToComposeMessage(input, toolResults);
 }
 

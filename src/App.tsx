@@ -12,7 +12,7 @@ export default function App() {
   const [selectedTools, setSelectedTools] = useState<Set<Tool>>(new Set());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [response, setResponse] = useState<string | null>(null);
+  const [response, setResponse] = useState<string>("");
 
   const tools: { id: Tool; label: string }[] = [
     { id: "getLastWeekLeaderboard", label: "Get Last Week Leaderboard" },
@@ -39,14 +39,17 @@ export default function App() {
 
     setLoading(true);
     setError(null);
-    setResponse(null);
+    setResponse("");
 
     try {
-      const result = await processPrompt({
+      const stream = processPrompt({
         prompt: prompt.trim(),
         tools: Array.from(selectedTools),
       });
-      setResponse(result.message);
+
+      for await (const chunk of stream) {
+        setResponse((prev) => prev + chunk);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -114,10 +117,13 @@ export default function App() {
               </div>
             )}
 
-            {response && (
+            {(response || loading) && (
               <div className="p-4 rounded-md bg-muted border">
                 <p className="text-sm font-medium mb-2">Response</p>
-                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{response}</p>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                  {response}
+                  {loading && <span className="animate-pulse">▊</span>}
+                </p>
               </div>
             )}
           </CardContent>
