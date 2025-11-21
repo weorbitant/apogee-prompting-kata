@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { ToolSelector } from "@/components/ToolSelector";
 import { processPrompt } from "@/api/client";
 
 type Tool = "getLastWeekLeaderboard" | "getLastWeekTransactions" | "getTodayLeaderboard";
@@ -15,10 +15,10 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<string>("");
 
-  const tools: { id: Tool; label: string }[] = [
-    { id: "getLastWeekLeaderboard", label: "Get Last Week Leaderboard" },
-    { id: "getLastWeekTransactions", label: "Get Last Week Transactions" },
-    { id: "getTodayLeaderboard", label: "Get Today Leaderboard" },
+  const tools: Tool[] = [
+    "getLastWeekLeaderboard",
+    "getLastWeekTransactions",
+    "getTodayLeaderboard",
   ];
 
   const toggleTool = (toolId: Tool) => {
@@ -87,26 +87,11 @@ export default function App() {
               />
             </div>
 
-            <div className="space-y-3">
-              <label className="text-sm font-medium">Select Tools</label>
-              <div className="space-y-3">
-                {tools.map((tool) => (
-                  <div key={tool.id} className="flex items-center space-x-3">
-                    <Checkbox
-                      id={tool.id}
-                      checked={selectedTools.has(tool.id)}
-                      onCheckedChange={() => toggleTool(tool.id)}
-                    />
-                    <label
-                      htmlFor={tool.id}
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                    >
-                      {tool.label}
-                    </label>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ToolSelector
+              tools={tools}
+              selectedTools={selectedTools}
+              onToggleTool={toggleTool}
+            />
 
             <Button
               onClick={handleSubmit}
