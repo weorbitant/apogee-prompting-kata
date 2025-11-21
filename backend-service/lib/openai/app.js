@@ -1,20 +1,20 @@
 import "dotenv/config";
 import OpenAI from "openai";
+import lastWeekLeaderboard from "../../mocks/lastWeekLeaderboard.json";
+import lastWeekTransactions from "../../mocks/lastWeekTransactions.json";
+import todayLeaderboard from "../../mocks/todayLeaderboard.json";
 
-// ---- Fake DB functions ---------------------
-async function getLeaderboard() {
-  return [
-    { user: "Alice", amount: 120 },
-    { user: "Bob", amount: 90 },
-    { user: "Charlie", amount: 50 },
-  ];
+// ---- Mock DB functions ---------------------
+async function getLastWeekLeaderboard() {
+  return lastWeekLeaderboard;
 }
 
-async function getTopGivers() {
-  return [
-    { user: "Alice", given: 100 },
-    { user: "Charlie", given: 80 },
-  ];
+async function getLastWeekTransactions() {
+  return lastWeekTransactions;
+}
+
+async function getTodayLeaderboard() {
+  return todayLeaderboard;
 }
 // --------------------------------------------
 
@@ -37,8 +37,8 @@ async function callModelWithTools(userInput) {
       {
         type: "function",
         function: {
-          name: "leaderboard",
-          description: "Get the leaderboard for the current period",
+          name: "getLastWeekLeaderboard",
+          description: "Get the leaderboard for the last week",
           parameters: {
             type: "object",
             properties: {},
@@ -49,8 +49,20 @@ async function callModelWithTools(userInput) {
       {
         type: "function",
         function: {
-          name: "topGivers",
-          description: "Get top givers in the system",
+          name: "getLastWeekTransactions",
+          description: "Get all transactions from the last week",
+          parameters: {
+            type: "object",
+            properties: {},
+            required: []
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "getTodayLeaderboard",
+          description: "Get the leaderboard for today",
           parameters: {
             type: "object",
             properties: {},
@@ -112,11 +124,14 @@ export async function main(tools, prompt) {
   // 2. Execute the tools
   const toolResults = {};
   for (const call of toolCalls) {
-    if (call.toolName === "leaderboard") {
-      toolResults.leaderboard = await getLeaderboard();
+    if (call.toolName === "getLastWeekLeaderboard") {
+      toolResults.getLastWeekLeaderboard = await getLastWeekLeaderboard();
     }
-    if (call.toolName === "topGivers") {
-      toolResults.topGivers = await getTopGivers();
+    if (call.toolName === "getLastWeekTransactions") {
+      toolResults.getLastWeekTransactions = await getLastWeekTransactions();
+    }
+    if (call.toolName === "getTodayLeaderboard") {
+      toolResults.getTodayLeaderboard = await getTodayLeaderboard();
     }
   }
 
@@ -128,6 +143,11 @@ export async function main(tools, prompt) {
   console.log("\n💬 Mensaje generado por el modelo:\n");
   console.log(finalMessage);
 
-  return finalMessage;
+  // Return as JSON
+  return {
+    message: finalMessage,
+    toolResults: toolResults,
+    toolsUsed: toolCalls.map(call => call.toolName)
+  };
 }
 

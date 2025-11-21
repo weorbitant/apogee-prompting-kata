@@ -1,0 +1,67 @@
+[
+  {
+    "id": "txn_001",
+    "from": "Alice",
+    "to": "Bob",
+    "amount": 50,
+    "timestamp": "2024-01-15T10:30:00Z",
+    "type": "positive"
+  },
+  {
+    "id": "txn_002",
+    "from": "Bob",
+    "to": "Charlie",
+    "amount": 30,
+    "timestamp": "2024-01-15T14:20:00Z",
+    "type": "positive"
+  },
+  {
+    "id": "txn_003",
+    "from": "Charlie",
+    "to": "Alice",
+    "amount": -20,
+    "timestamp": "2024-01-16T09:15:00Z",
+    "type": "negative"
+  },
+  {
+    "id": "txn_004",
+    "from": "Diana",
+    "to": "Eve",
+    "amount": 40,
+    "timestamp": "2024-01-16T11:45:00Z",
+    "type": "positive"
+  },
+  {
+    "id": "txn_005",
+    "from": "Alice",
+    "to": "Diana",
+    "amount": 60,
+    "timestamp": "2024-01-17T08:00:00Z",
+    "type": "positive"
+  },
+  {
+    "id": "txn_006",
+    "from": "Eve",
+    "to": "Bob",
+    "amount": -15,
+    "timestamp": "2024-01-17T16:30:00Z",
+    "type": "negative"
+  },
+  {
+    "id": "txn_007",
+    "from": "Bob",
+    "to": "Alice",
+    "amount": 25,
+    "timestamp": "2024-01-18T12:00:00Z",
+    "type": "positive"
+  },
+  {
+    "id": "txn_008",
+    "from": "Charlie",
+    "to": "Eve",
+    "amount": 35,
+    "timestamp": "2024-01-19T10:20:00Z",
+    "type": "positive"
+  }
+]
+

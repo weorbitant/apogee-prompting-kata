@@ -20,7 +20,7 @@ app.post("/api/process", async (req, res) => {
 
     res.json({
       success: true,
-      message: result
+      ...result
     });
   } catch (error) {
     console.error("Error processing request:", error);
