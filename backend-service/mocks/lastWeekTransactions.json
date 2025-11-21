@@ -1,67 +1,482 @@
 [
-  {
-    "id": "txn_001",
-    "from": "Alice",
-    "to": "Bob",
-    "amount": 50,
-    "timestamp": "2024-01-15T10:30:00Z",
-    "type": "positive"
-  },
-  {
-    "id": "txn_002",
-    "from": "Bob",
-    "to": "Charlie",
-    "amount": 30,
-    "timestamp": "2024-01-15T14:20:00Z",
-    "type": "positive"
-  },
-  {
-    "id": "txn_003",
-    "from": "Charlie",
-    "to": "Alice",
-    "amount": -20,
-    "timestamp": "2024-01-16T09:15:00Z",
-    "type": "negative"
-  },
-  {
-    "id": "txn_004",
-    "from": "Diana",
-    "to": "Eve",
-    "amount": 40,
-    "timestamp": "2024-01-16T11:45:00Z",
-    "type": "positive"
-  },
-  {
-    "id": "txn_005",
-    "from": "Alice",
-    "to": "Diana",
-    "amount": 60,
-    "timestamp": "2024-01-17T08:00:00Z",
-    "type": "positive"
-  },
-  {
-    "id": "txn_006",
-    "from": "Eve",
-    "to": "Bob",
-    "amount": -15,
-    "timestamp": "2024-01-17T16:30:00Z",
-    "type": "negative"
-  },
-  {
-    "id": "txn_007",
-    "from": "Bob",
-    "to": "Alice",
-    "amount": 25,
-    "timestamp": "2024-01-18T12:00:00Z",
-    "type": "positive"
-  },
-  {
-    "id": "txn_008",
-    "from": "Charlie",
-    "to": "Eve",
-    "amount": 35,
-    "timestamp": "2024-01-19T10:20:00Z",
-    "type": "positive"
-  }
+	{
+		"message" : "<@U0961UA5VT7> ++ progressing.... XXYYZZ",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T13:34:29.280+00:00",
+		"newTotal" : 191,
+		"fromName" : "Víctor Pérez del Postigo",
+		"toName" : "David Yusta"
+	},
+	{
+		"message" : "<@U096TR7NXHU> +++ <@U09LMQM2SQ2> +++ <@U0961UA5VT7> +++ <@U096BAZRG0N> +++  <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ Funcionando a la perfección! todo nominal de cara a final de año! Enero 2026 va a ser una fiesta :grimacing:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T12:23:13.662+00:00",
+		"newTotal" : 138,
+		"fromName" : "Víctor Pérez del Postigo",
+		"toName" : "Iván Esteban"
+	},
+	{
+		"message" : "<@U096TR7NXHU> +++ <@U09LMQM2SQ2> +++ <@U0961UA5VT7> +++ <@U096BAZRG0N> +++  <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ Funcionando a la perfección! todo nominal de cara a final de año! Enero 2026 va a ser una fiesta :grimacing:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T12:23:13.662+00:00",
+		"newTotal" : 29,
+		"fromName" : "Víctor Pérez del Postigo",
+		"toName" : "David Rueda"
+	},
+	{
+		"message" : "<@U096TR7NXHU> +++ <@U09LMQM2SQ2> +++ <@U0961UA5VT7> +++ <@U096BAZRG0N> +++  <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ Funcionando a la perfección! todo nominal de cara a final de año! Enero 2026 va a ser una fiesta :grimacing:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T12:23:13.662+00:00",
+		"newTotal" : 190,
+		"fromName" : "Víctor Pérez del Postigo",
+		"toName" : "David Yusta"
+	},
+	{
+		"message" : "<@U096TR7NXHU> +++ <@U09LMQM2SQ2> +++ <@U0961UA5VT7> +++ <@U096BAZRG0N> +++  <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ Funcionando a la perfección! todo nominal de cara a final de año! Enero 2026 va a ser una fiesta :grimacing:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T12:23:13.662+00:00",
+		"newTotal" : 76,
+		"fromName" : "Víctor Pérez del Postigo",
+		"toName" : "Elena Gomez"
+	},
+	{
+		"message" : "<@U096TR7NXHU> +++ <@U09LMQM2SQ2> +++ <@U0961UA5VT7> +++ <@U096BAZRG0N> +++  <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ Funcionando a la perfección! todo nominal de cara a final de año! Enero 2026 va a ser una fiesta :grimacing:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T12:23:13.662+00:00",
+		"newTotal" : 82,
+		"fromName" : "Víctor Pérez del Postigo",
+		"toName" : "Matteo Di Paolantonio"
+	},
+	{
+		"message" : "<@U096TR7NXHU> +++ <@U09LMQM2SQ2> +++ <@U0961UA5VT7> +++ <@U096BAZRG0N> +++  <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ Funcionando a la perfección! todo nominal de cara a final de año! Enero 2026 va a ser una fiesta :grimacing:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T12:23:13.662+00:00",
+		"newTotal" : 111,
+		"fromName" : "Víctor Pérez del Postigo",
+		"toName" : "Lucas Jin"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U0961UA5VT7> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :teamwork: :extreme-teamwork:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:43:06.678+00:00",
+		"newTotal" : 115,
+		"fromName" : "David Rueda",
+		"toName" : "Víctor Pérez del Postigo"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U0961UA5VT7> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :teamwork: :extreme-teamwork:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:43:06.678+00:00",
+		"newTotal" : 136,
+		"fromName" : "David Rueda",
+		"toName" : "Iván Esteban"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U0961UA5VT7> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :teamwork: :extreme-teamwork:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:43:06.678+00:00",
+		"newTotal" : 74,
+		"fromName" : "David Rueda",
+		"toName" : "Elena Gomez"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U0961UA5VT7> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :teamwork: :extreme-teamwork:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:43:06.678+00:00",
+		"newTotal" : 188,
+		"fromName" : "David Rueda",
+		"toName" : "David Yusta"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U0961UA5VT7> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :teamwork: :extreme-teamwork:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:43:06.678+00:00",
+		"newTotal" : 80,
+		"fromName" : "David Rueda",
+		"toName" : "Matteo Di Paolantonio"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U0961UA5VT7> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :teamwork: :extreme-teamwork:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:43:06.678+00:00",
+		"newTotal" : 109,
+		"fromName" : "David Rueda",
+		"toName" : "Lucas Jin"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:42:31.170+00:00",
+		"newTotal" : 113,
+		"fromName" : "David Yusta",
+		"toName" : "Víctor Pérez del Postigo"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:42:31.170+00:00",
+		"newTotal" : 134,
+		"fromName" : "David Yusta",
+		"toName" : "Iván Esteban"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:42:31.170+00:00",
+		"newTotal" : 72,
+		"fromName" : "David Yusta",
+		"toName" : "Elena Gomez"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:42:31.170+00:00",
+		"newTotal" : 27,
+		"fromName" : "David Yusta",
+		"toName" : "David Rueda"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:42:31.170+00:00",
+		"newTotal" : 78,
+		"fromName" : "David Yusta",
+		"toName" : "Matteo Di Paolantonio"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U096BAZRG0N> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:42:31.170+00:00",
+		"newTotal" : 107,
+		"fromName" : "David Yusta",
+		"toName" : "Lucas Jin"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :rocket::raised_hands:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:40:06.330+00:00",
+		"newTotal" : 111,
+		"fromName" : "Elena Gomez",
+		"toName" : "Víctor Pérez del Postigo"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :rocket::raised_hands:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:40:06.330+00:00",
+		"newTotal" : 132,
+		"fromName" : "Elena Gomez",
+		"toName" : "Iván Esteban"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :rocket::raised_hands:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:40:06.330+00:00",
+		"newTotal" : 186,
+		"fromName" : "Elena Gomez",
+		"toName" : "David Yusta"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :rocket::raised_hands:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:40:06.330+00:00",
+		"newTotal" : 25,
+		"fromName" : "Elena Gomez",
+		"toName" : "David Rueda"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :rocket::raised_hands:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:40:06.330+00:00",
+		"newTotal" : 76,
+		"fromName" : "Elena Gomez",
+		"toName" : "Matteo Di Paolantonio"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096GQ4VCNM> +++ <@U096BAYH5E2> +++ :rocket::raised_hands:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:40:06.330+00:00",
+		"newTotal" : 105,
+		"fromName" : "Elena Gomez",
+		"toName" : "Lucas Jin"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096BAYH5E2> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:59.313+00:00",
+		"newTotal" : 109,
+		"fromName" : "Iván Esteban",
+		"toName" : "Víctor Pérez del Postigo"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096BAYH5E2> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:59.313+00:00",
+		"newTotal" : 103,
+		"fromName" : "Iván Esteban",
+		"toName" : "Lucas Jin"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096BAYH5E2> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:59.313+00:00",
+		"newTotal" : 184,
+		"fromName" : "Iván Esteban",
+		"toName" : "David Yusta"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096BAYH5E2> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:59.313+00:00",
+		"newTotal" : 23,
+		"fromName" : "Iván Esteban",
+		"toName" : "David Rueda"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096BAYH5E2> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:59.313+00:00",
+		"newTotal" : 70,
+		"fromName" : "Iván Esteban",
+		"toName" : "Elena Gomez"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:35.188+00:00",
+		"newTotal" : 107,
+		"fromName" : "Lucas Jin",
+		"toName" : "Víctor Pérez del Postigo"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:35.188+00:00",
+		"newTotal" : 130,
+		"fromName" : "Lucas Jin",
+		"toName" : "Iván Esteban"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:35.188+00:00",
+		"newTotal" : 182,
+		"fromName" : "Lucas Jin",
+		"toName" : "David Yusta"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:35.188+00:00",
+		"newTotal" : 21,
+		"fromName" : "Lucas Jin",
+		"toName" : "David Rueda"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ <@U096TR7NXHU> +++ <@U0961UA5VT7> +++ <@U09LMQM2SQ2> +++ <@U096BAZRG0N> +++ <@U096GQ4VCNM>+++ great team work !! :100:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:37:35.188+00:00",
+		"newTotal" : 68,
+		"fromName" : "Lucas Jin",
+		"toName" : "Elena Gomez"
+	},
+	{
+		"message" : "<@U0965056EMA> +++ :microphone: :bam:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T11:36:14.995+00:00",
+		"newTotal" : 105,
+		"fromName" : "Iván Esteban",
+		"toName" : "Víctor Pérez del Postigo"
+	},
+	{
+		"message" : "<@U094DPRLB1P> ++ :hotel: :page_facing_up:",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T11:19:03.743+00:00",
+		"newTotal" : 35,
+		"fromName" : "Kevin Martínez",
+		"toName" : "Andrea M."
+	},
+	{
+		"message" : "<@U09JFPPA2N8> +++ -&gt; very help on fixing",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T10:30:58.680+00:00",
+		"newTotal" : 59,
+		"fromName" : "Guillermo C. Martínez",
+		"toName" : "Jose Giner"
+	},
+	{
+		"message" : "<@U0969AKAT6X> +++ -&gt; addressing and summarizing",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T10:30:42.361+00:00",
+		"newTotal" : 88,
+		"fromName" : "Guillermo C. Martínez",
+		"toName" : "Daniel Alarcón"
+	},
+	{
+		"message" : "<@U09JFPPA2N8> ++ <@U09H9U9AR36> ++ <@U0969AKAT6X> ++",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T10:21:45.703+00:00",
+		"newTotal" : 57,
+		"fromName" : "David Rueda",
+		"toName" : "Jose Giner"
+	},
+	{
+		"message" : "<@U09JFPPA2N8> ++ <@U09H9U9AR36> ++ <@U0969AKAT6X> ++",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T10:21:45.703+00:00",
+		"newTotal" : 33,
+		"fromName" : "David Rueda",
+		"toName" : "Guillermo C. Martínez"
+	},
+	{
+		"message" : "<@U09JFPPA2N8> ++ <@U09H9U9AR36> ++ <@U0969AKAT6X> ++",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T10:21:45.703+00:00",
+		"newTotal" : 86,
+		"fromName" : "David Rueda",
+		"toName" : "Daniel Alarcón"
+	},
+	{
+		"message" : "<@U09JFPPA2N8> +++ :black_joker:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T10:21:40.040+00:00",
+		"newTotal" : 56,
+		"fromName" : "Iván Esteban",
+		"toName" : "Jose Giner"
+	},
+	{
+		"message" : "<@U0969AKAT6X> ++ <@U09JFPPA2N8> ++ <@U09H9U9AR36> ++ lidiando con el cluster",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T10:21:34.345+00:00",
+		"newTotal" : 85,
+		"fromName" : "David Yusta",
+		"toName" : "Daniel Alarcón"
+	},
+	{
+		"message" : "<@U0969AKAT6X> ++ <@U09JFPPA2N8> ++ <@U09H9U9AR36> ++ lidiando con el cluster",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T10:21:34.345+00:00",
+		"newTotal" : 54,
+		"fromName" : "David Yusta",
+		"toName" : "Jose Giner"
+	},
+	{
+		"message" : "<@U0969AKAT6X> ++ <@U09JFPPA2N8> ++ <@U09H9U9AR36> ++ lidiando con el cluster",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T10:21:34.345+00:00",
+		"newTotal" : 32,
+		"fromName" : "David Yusta",
+		"toName" : "Guillermo C. Martínez"
+	},
+	{
+		"message" : "<@U096G3T569M> ++ resolviendo dudas como el rayo!",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T10:13:57.985+00:00",
+		"newTotal" : 106,
+		"fromName" : "Alma",
+		"toName" : "Kevin Martínez"
+	},
+	{
+		"message" : "<@U09H9U9AR36> +++ <@U0969AKAT6X> +++ :extreme-teamwork:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T09:44:32.106+00:00",
+		"newTotal" : 31,
+		"fromName" : "Iván Esteban",
+		"toName" : "Guillermo C. Martínez"
+	},
+	{
+		"message" : "<@U09H9U9AR36> +++ <@U0969AKAT6X> +++ :extreme-teamwork:",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T09:44:32.106+00:00",
+		"newTotal" : 84,
+		"fromName" : "Iván Esteban",
+		"toName" : "Daniel Alarcón"
+	},
+	{
+		"message" : "<@U099099AKNH> ++ :star: github",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T09:22:56.845+00:00",
+		"newTotal" : 12,
+		"fromName" : "Kevin Martínez",
+		"toName" : "Mauricio"
+	},
+	{
+		"message" : "<@U096TRCD59U> +++ documentación repos y ejemplo a seguir para el resto",
+		"amount" : 2,
+		"timestamp" : "2025-11-21T09:22:31.457+00:00",
+		"newTotal" : 12,
+		"fromName" : "Alberto Luque",
+		"toName" : "César González"
+	},
+	{
+		"message" : "<@U093VN9BR0E> ++ ayuda con el form",
+		"amount" : 1,
+		"timestamp" : "2025-11-21T08:12:58.531+00:00",
+		"newTotal" : 70,
+		"fromName" : "Felipe Polo",
+		"toName" : "Jose A. Dorado"
+	},
+	{
+		"message" : "<@U0961UA5VT7> ++ que antes no te he dado feedback",
+		"amount" : 1,
+		"timestamp" : "2025-11-20T12:38:30.185+00:00",
+		"newTotal" : 180,
+		"fromName" : "David Rueda",
+		"toName" : "David Yusta"
+	},
+	{
+		"message" : "<@U096BAYH5E2> +++ :alert: :msg_error:",
+		"amount" : 2,
+		"timestamp" : "2025-11-20T10:44:36.207+00:00",
+		"newTotal" : 101,
+		"fromName" : "Iván Esteban",
+		"toName" : "Lucas Jin"
+	},
+	{
+		"message" : "<@U09KADC83H7> ++ revisiones rápidas :zap:",
+		"amount" : 1,
+		"timestamp" : "2025-11-20T10:32:42.002+00:00",
+		"newTotal" : 6,
+		"fromName" : "Felipe Polo",
+		"toName" : "Beatriz Belinchón"
+	},
+	{
+		"message" : "<@U09LC2H47MK> ++ :hammer_and_wrench:",
+		"amount" : 1,
+		"timestamp" : "2025-11-20T09:44:33.916+00:00",
+		"newTotal" : 13,
+		"fromName" : "Fernando de la Torre",
+		"toName" : "Ignacio Mangas"
+	},
+	{
+		"message" : "<@U096G3T569M> +++ -&gt; :star:  :twd:",
+		"amount" : 2,
+		"timestamp" : "2025-11-20T08:15:51.399+00:00",
+		"newTotal" : 105,
+		"fromName" : "Guillermo C. Martínez",
+		"toName" : "Kevin Martínez"
+	},
+	{
+		"message" : "<@U09EDEQ3WCB> +++ aportando a la comunidad! :book:",
+		"amount" : 2,
+		"timestamp" : "2025-11-20T08:15:11.675+00:00",
+		"newTotal" : 35,
+		"fromName" : "Víctor Pérez del Postigo",
+		"toName" : "UlisesGascon"
+	},
+	{
+		"message" : "Top <@U096G3T569M> ++",
+		"amount" : 1,
+		"timestamp" : "2025-11-19T21:08:17.372+00:00",
+		"newTotal" : 103,
+		"fromName" : "Matteo Di Paolantonio",
+		"toName" : "Kevin Martínez"
+	},
+	{
+		"message" : "<@U096GQ4VCNM> ++ new features",
+		"amount" : 1,
+		"timestamp" : "2025-11-19T20:37:17.074+00:00",
+		"newTotal" : 74,
+		"fromName" : "Kevin Martínez",
+		"toName" : "Matteo Di Paolantonio"
+	}
 ]
-

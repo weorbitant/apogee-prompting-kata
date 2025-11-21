@@ -1,8 +1,112 @@
 [
-  { "user": "Alice", "amount": 85, "rank": 1 },
-  { "user": "Charlie", "amount": 65, "rank": 2 },
-  { "user": "Bob", "amount": 45, "rank": 3 },
-  { "user": "Diana", "amount": 30, "rank": 4 },
-  { "user": "Eve", "amount": 20, "rank": 5 }
+  {
+		"name" : "David Yusta",
+		"total" : 190,
+		"rank" : 1
+	},
+	{
+		"name" : "Iván Esteban",
+		"total" : 138,
+		"rank" : 2
+	},
+	{
+		"name" : "Víctor Pérez del Postigo",
+		"total" : 115,
+		"rank" : 3
+	},
+	{
+		"name" : "Lucas Jin",
+		"total" : 111,
+		"rank" : 4
+	},
+	{
+		"name" : "Kevin Martínez",
+		"total" : 106,
+		"rank" : 5
+	},
+	{
+		"name" : "Daniel Alarcón",
+		"total" : 88,
+		"rank" : 6
+	},
+	{
+		"name" : "Matteo Di Paolantonio",
+		"total" : 82,
+		"rank" : 7
+	},
+	{
+		"name" : "Elena Gomez",
+		"total" : 76,
+		"rank" : 8
+	},
+	{
+		"name" : "Alma",
+		"total" : 71,
+		"rank" : 9
+	},
+	{
+		"name" : "Jose A. Dorado",
+		"total" : 70,
+		"rank" : 10
+	},
+	{
+		"name" : "Jose Giner",
+		"total" : 59,
+		"rank" : 11
+	},
+	{
+		"name" : "UlisesGascon",
+		"total" : 37,
+		"rank" : 12
+	},
+	{
+		"name" : "Andrea M.",
+		"total" : 35,
+		"rank" : 13
+	},
+	{
+		"name" : "Guillermo C. Martínez",
+		"total" : 33,
+		"rank" : 14
+	},
+	{
+		"name" : "David Rueda",
+		"total" : 29,
+		"rank" : 15
+	},
+	{
+		"name" : "Fernando de la Torre",
+		"total" : 24,
+		"rank" : 16
+	},
+	{
+		"name" : "Felipe Polo",
+		"total" : 21,
+		"rank" : 17
+	},
+	{
+		"name" : "Ignacio Mangas",
+		"total" : 13,
+		"rank" : 18
+	},
+	{
+		"name" : "Mauricio",
+		"total" : 12,
+		"rank" : 19
+	},
+	{
+		"name" : "César González",
+		"total" : 12,
+		"rank" : 20
+	},
+	{
+		"name" : "Alberto Luque",
+		"total" : 10,
+		"rank" : 21
+	},
+	{
+		"name" : "Beatriz Belinchón",
+		"total" : 6,
+		"rank" : 22
+	}
 ]
-

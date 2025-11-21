@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { main } from "./lib/openai/app.js";
 
 const app = express();
@@ -6,7 +6,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-app.post("/api/process", async (req, res) => {
+interface ProcessRequestBody {
+  tools?: string;
+  prompt?: string;
+}
+
+app.post("/api/process", async (req: Request<{}, {}, ProcessRequestBody>, res: Response) => {
   try {
     const { tools, prompt } = req.body;
 
@@ -24,9 +29,10 @@ app.post("/api/process", async (req, res) => {
     });
   } catch (error) {
     console.error("Error processing request:", error);
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     res.status(500).json({
       error: "Internal server error",
-      message: error.message
+      message: errorMessage
     });
   }
 });

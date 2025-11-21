@@ -1,27 +1,65 @@
-import "dotenv/config";
-import OpenAI from "openai";
 import lastWeekLeaderboard from "../../mocks/lastWeekLeaderboard.json";
 import lastWeekTransactions from "../../mocks/lastWeekTransactions.json";
 import todayLeaderboard from "../../mocks/todayLeaderboard.json";
+import { openAIClient, type OpenAIClientInterface } from "./client.js";
+import type { ChatCompletionCreateParams } from "openai/resources/chat/completions";
+
+interface Leaderboard {
+  name: string;
+  total: number;
+  rank: number;
+}
+
+interface Transaction {
+  message: string;
+  amount: number;
+  timestamp: string;
+  newTotal: number;
+  fromName: string;
+  toName: string;
+}
+// Types
+interface UserInput {
+  tools: string;
+  prompt: string;
+}
+
+interface ToolCall {
+  toolName: string;
+  args: Record<string, unknown>;
+}
+
+interface ToolResults {
+  getLastWeekLeaderboard?: Leaderboard[];
+  getLastWeekTransactions?: Transaction[];
+  getTodayLeaderboard?: Leaderboard[];
+}
+
+interface MainResult {
+  message: string;
+  toolResults: ToolResults;
+  toolsUsed: string[];
+}
 
 // ---- Mock DB functions ---------------------
-async function getLastWeekLeaderboard() {
-  return lastWeekLeaderboard;
+async function getLastWeekLeaderboard(): Promise<Leaderboard[]> {
+  return lastWeekLeaderboard as Leaderboard[];
 }
 
-async function getLastWeekTransactions() {
-  return lastWeekTransactions;
+async function getLastWeekTransactions(): Promise<Transaction[]> {
+  return lastWeekTransactions as Transaction[];
 }
 
-async function getTodayLeaderboard() {
-  return todayLeaderboard;
+async function getTodayLeaderboard(): Promise<Leaderboard[]> {
+  return todayLeaderboard as Leaderboard[];
 }
 // --------------------------------------------
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
-async function callModelWithTools(userInput) {
-  const response = await client.chat.completions.create({
+async function callModelWithTools(
+  userInput: UserInput,
+  client: OpenAIClientInterface = openAIClient
+): Promise<ToolCall[] | null> {
+  const params: ChatCompletionCreateParams = {
     model: "gpt-4.1-mini",
     messages: [
       {
@@ -71,22 +109,29 @@ async function callModelWithTools(userInput) {
         }
       }
     ]
-  });
+  };
 
+  const response = await client.createChatCompletion(params);
   const choice = response.choices[0];
 
-  if (choice.finish_reason === "tool_calls") {
-    return choice.message.tool_calls.map(call => ({
-      toolName: call.function.name,
-      args: call.function.arguments ? JSON.parse(call.function.arguments) : {}
-    }));
+  if (choice.finish_reason === "tool_calls" && choice.message.tool_calls) {
+    return choice.message.tool_calls
+      .filter((call): call is Extract<typeof call, { type: "function" }> => call.type === "function")
+      .map(call => ({
+        toolName: call.function.name,
+        args: call.function.arguments ? JSON.parse(call.function.arguments) : {}
+      }));
   }
 
   return null;
 }
 
-async function callModelToComposeMessage(userInput, toolResults) {
-  const response = await client.chat.completions.create({
+async function callModelToComposeMessage(
+  userInput: UserInput,
+  toolResults: ToolResults,
+  client: OpenAIClientInterface = openAIClient
+): Promise<string> {
+  const params: ChatCompletionCreateParams = {
     model: "gpt-4.1-mini",
     messages: [
       {
@@ -102,14 +147,19 @@ async function callModelToComposeMessage(userInput, toolResults) {
         content: "Here are the results from the tools: " + JSON.stringify(toolResults, null, 2)
       }
     ]
-  });
+  };
 
-  return response.choices[0].message.content;
+  const response = await client.createChatCompletion(params);
+  const content = response.choices[0].message.content;
+  if (!content) {
+    throw new Error("No content in response");
+  }
+  return content;
 }
 
 // ---- MAIN FUNCTION ------------------------
-export async function main(tools, prompt) {
-  const input = {
+export async function main(tools: string, prompt: string): Promise<MainResult> {
+  const input: UserInput = {
     tools,
     prompt
   };
@@ -119,10 +169,14 @@ export async function main(tools, prompt) {
   // 1. First OpenAI call → ask model which tools to use
   const toolCalls = await callModelWithTools(input);
 
+  if (!toolCalls) {
+    throw new Error("No tools were selected by the model");
+  }
+
   console.log("\n🔧 Herramientas seleccionadas por el modelo:", toolCalls);
 
   // 2. Execute the tools
-  const toolResults = {};
+  const toolResults: ToolResults = {};
   for (const call of toolCalls) {
     if (call.toolName === "getLastWeekLeaderboard") {
       toolResults.getLastWeekLeaderboard = await getLastWeekLeaderboard();
@@ -139,9 +193,6 @@ export async function main(tools, prompt) {
 
   // 3. Second call → compose final message
   const finalMessage = await callModelToComposeMessage(input, toolResults);
-
-  console.log("\n💬 Mensaje generado por el modelo:\n");
-  console.log(finalMessage);
 
   // Return as JSON
   return {
