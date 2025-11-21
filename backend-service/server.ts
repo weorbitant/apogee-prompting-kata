@@ -1,9 +1,11 @@
 import express, { Request, Response } from "express";
+import cors from "cors";
 import { main } from "./lib/openai/app.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
 
 interface ProcessRequestBody {

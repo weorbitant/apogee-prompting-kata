@@ -3,12 +3,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { processPrompt } from "@/api/client";
 
 type Tool = "getLastWeekLeaderboard" | "getLastWeekTransactions" | "getTodayLeaderboard";
 
 export default function App() {
   const [prompt, setPrompt] = useState("");
   const [selectedTools, setSelectedTools] = useState<Set<Tool>>(new Set());
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [response, setResponse] = useState<string | null>(null);
 
   const tools: { id: Tool; label: string }[] = [
     { id: "getLastWeekLeaderboard", label: "Get Last Week Leaderboard" },
@@ -28,10 +32,26 @@ export default function App() {
     });
   };
 
-  const handleSubmit = () => {
-    console.log("Prompt:", prompt);
-    console.log("Selected tools:", Array.from(selectedTools));
-    // TODO: Implement API call to backend
+  const handleSubmit = async () => {
+    if (!prompt.trim() || selectedTools.size === 0) {
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+    setResponse(null);
+
+    try {
+      const result = await processPrompt({
+        prompt: prompt.trim(),
+        tools: Array.from(selectedTools),
+      });
+      setResponse(result.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -81,11 +101,25 @@ export default function App() {
 
             <Button
               onClick={handleSubmit}
-              disabled={!prompt.trim() || selectedTools.size === 0}
+              disabled={!prompt.trim() || selectedTools.size === 0 || loading}
               className="w-full"
             >
-              Submit
+              {loading ? "Processing..." : "Submit"}
             </Button>
+
+            {error && (
+              <div className="p-4 rounded-md bg-destructive/10 border border-destructive/20">
+                <p className="text-sm text-destructive font-medium">Error</p>
+                <p className="text-sm text-destructive/80 mt-1">{error}</p>
+              </div>
+            )}
+
+            {response && (
+              <div className="p-4 rounded-md bg-muted border">
+                <p className="text-sm font-medium mb-2">Response</p>
+                <p className="text-sm text-muted-foreground whitespace-pre-wrap">{response}</p>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
