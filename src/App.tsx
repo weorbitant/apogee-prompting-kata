@@ -1,35 +1,94 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
-function App() {
-  const [count, setCount] = useState(0)
+type Tool = "getLastWeekLeaderboard" | "getLastWeekTransactions" | "getTodayLeaderboard";
+
+export default function App() {
+  const [prompt, setPrompt] = useState("");
+  const [selectedTools, setSelectedTools] = useState<Set<Tool>>(new Set());
+
+  const tools: { id: Tool; label: string }[] = [
+    { id: "getLastWeekLeaderboard", label: "Get Last Week Leaderboard" },
+    { id: "getLastWeekTransactions", label: "Get Last Week Transactions" },
+    { id: "getTodayLeaderboard", label: "Get Today Leaderboard" },
+  ];
+
+  const toggleTool = (toolId: Tool) => {
+    setSelectedTools((prev) => {
+      const next = new Set(prev);
+      if (next.has(toolId)) {
+        next.delete(toolId);
+      } else {
+        next.add(toolId);
+      }
+      return next;
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log("Prompt:", prompt);
+    console.log("Selected tools:", Array.from(selectedTools));
+    // TODO: Implement API call to backend
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="min-h-screen bg-background p-4 md:p-8">
+      <div className="max-w-4xl mx-auto">
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-2xl">Apogee Prompting Kata</CardTitle>
+            <CardDescription>
+              Enter your prompt and select the tools you want to execute
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <label htmlFor="prompt" className="text-sm font-medium">
+                Prompt
+              </label>
+              <Textarea
+                id="prompt"
+                placeholder="Enter your prompt here..."
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                className="min-h-32 resize-y"
+              />
+            </div>
 
-export default App
+            <div className="space-y-3">
+              <label className="text-sm font-medium">Select Tools</label>
+              <div className="space-y-3">
+                {tools.map((tool) => (
+                  <div key={tool.id} className="flex items-center space-x-3">
+                    <Checkbox
+                      id={tool.id}
+                      checked={selectedTools.has(tool.id)}
+                      onCheckedChange={() => toggleTool(tool.id)}
+                    />
+                    <label
+                      htmlFor={tool.id}
+                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                    >
+                      {tool.label}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <Button
+              onClick={handleSubmit}
+              disabled={!prompt.trim() || selectedTools.size === 0}
+              className="w-full"
+            >
+              Submit
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}

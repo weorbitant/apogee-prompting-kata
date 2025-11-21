@@ -1,68 +1,1120 @@
+@import 'tailwindcss';
+
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+=== AFIANZA DESIGN SYSTEM COLOR IMPLEMENTATION ===
+
+This CSS file implements the Afianza design system colors within shadcn/ui's framework.
+
+DESIGNER'S ORIGINAL PALETTE:
+- Primary: #36a9e1 (Blue) with opacity variants (80%, 60%, 40%, 20%, 10%, 5%)
+- Secondary: #7A99AC (Blue-Gray) with opacity variants
+- Grayscale: #01162A to #FFFFFF (7-step scale)
+- Status Colors: Success #58C389, Warning #EEB758, Error #EE726C
+- Border: #CCD0D4 (1px borders for inputs)
+
+ADAPTATION STRATEGY:
+1. Convert hex colors to HSL for better CSS variable support
+2. Map designer's "opacity" variants to actual lighter tints (not opacity)
+3. Integrate with shadcn/ui's semantic token system
+4. Provide both light and dark mode variants
+5. Create utility classes for direct color access
+
+HOW TO USE:
+- Use shadcn/ui components normally - they'll automatically use Afianza colors
+- Use utility classes like .bg-primary-80, .text-success for custom styling
+- All colors automatically adapt to light/dark mode
+- Input borders are automatically 1px as specified
+*/
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  
+  /* === AFIANZA TYPOGRAPHY SYSTEM === */
+  /* Font sizes with line heights as specified by designer */
+  
+  /* Headlines */
+  --font-size-h1: 3rem; /* 48px */
+  --line-height-h1: 3rem; /* 48px */
+  --font-size-h2: 2.5rem; /* 40px */
+  --line-height-h2: 2.5rem; /* 40px */
+  --font-size-h3: 2.125rem; /* 34px */
+  --line-height-h3: 2.125rem; /* 34px */
+  --font-size-h4: 1.75rem; /* 28px */
+  --line-height-h4: 1.75rem; /* 28px */
+  --font-size-h5: 1.5rem; /* 24px */
+  --line-height-h5: 1.5rem; /* 24px */
+  --font-size-h6: 1.25rem; /* 20px */
+  --line-height-h6: 1.25rem; /* 20px */
+  
+  /* Body text */
+  --font-size-body-1: 1rem; /* 16px */
+  --line-height-body-1: 1.25rem; /* 20px */
+  --font-size-body-2: 0.875rem; /* 14px */
+  --line-height-body-2: 1.125rem; /* 18px */
+  --font-size-caption: 0.75rem; /* 12px */
+  --line-height-caption: 0.875rem; /* 14px */
+  
+  /* Button text */
+  --font-size-button-1: 1rem; /* 16px */
+  --line-height-button-1: 1.25rem; /* 20px */
+  --font-size-button-2: 0.875rem; /* 14px */
+  --line-height-button-2: 1.125rem; /* 18px */
+
+
+  /* Color mappings for shadcn/ui compatibility */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-card-border: var(--card-border);
+  --color-card-border-width: var(--card-border-width);
+  --color-card-shadow: var(--card-shadow);
+  --color-card-radius: var(--card-radius);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Legacy color for backward compatibility */
+  --color-corporative-primary: #01162a;
+  --color-secondary-pantone: var(--secondary-default);
+
+  /* Animation variables */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --radius: 0.25rem; /* 4px - Default radius for most components */
+  
+  /* === AFIANZA DESIGN SYSTEM COLORS === */
+  
+  /* Primary Color Palette - #36a9e1 (Blue) */
+  --primary-default: 199 78% 55%;     /* #36a9e1 - Main primary color */
+  --primary-80: 199 73% 65%;          /* #5EBAE7 - 80% opacity equivalent */
+  --primary-60: 199 68% 73%;          /* #88CBEC - 60% opacity equivalent */
+  --primary-40: 199 77% 82%;          /* #AFDDF3 - 40% opacity equivalent */
+  --primary-20: 199 82% 91%;          /* #D7EEF9 - 20% opacity equivalent */
+  --primary-10: 199 86% 95%;          /* #EBF6FC - 10% opacity equivalent */
+  --primary-5: 199 89% 98%;           /* #F5FBFD - 5% opacity equivalent */
+  
+  /* Secondary Color Palette - #7A99AC (Blue-Gray) */
+  --secondary-default: 204 20% 58%;   /* #7A99AC - Main secondary color */
+  --secondary-80: 204 18% 66%;        /* #95ADBD - 80% opacity equivalent */
+  --secondary-60: 204 17% 74%;        /* #AFC2CD - 60% opacity equivalent */
+  --secondary-40: 204 16% 82%;        /* #CAD6DE - 40% opacity equivalent */
+  --secondary-20: 204 15% 90%;        /* #E4EBEE - 20% opacity equivalent */
+  --secondary-10: 204 20% 94%;        /* #E8EFF3 - 10% opacity equivalent */
+  --secondary-5: 204 25% 98%;         /* #F8FAFB - 5% opacity equivalent */
+  
+  /* Grayscale Palette - #01162A (Dark Blue-Black) to White */
+  --gray-900: 210 93% 8%;             /* #01162A - Darkest gray (text primary) */
+  --gray-700: 215 14% 36%;            /* #515869 - 80% gray */
+  --gray-600: 215 10% 54%;            /* #7C828E - 60% gray */
+  --gray-400: 215 8% 69%;             /* #A8ABB4 - 40% gray */
+  --gray-200: 215 6% 84%;             /* #D3D5D9 - 20% gray */
+  --gray-50: 215 9% 95%;              /* #F2F3F4 - 5% gray */
+  --gray-0: 0 0% 100%;                /* #FFFFFF - Pure white */
+  
+  /* Status Colors */
+  --success: 151 48% 56%;             /* #58C389 - Success green */
+  --warning: 42 73% 64%;              /* #EEB758 - Warning orange */
+  --error: 4 71% 68%;                 /* #EE726C - Error red */
+  
+  /* Hover Colors */
+  --primary-hover: 200 60% 48%;       /* #3194C5 - Hover color for both primary and secondary */
+  
+  /* Border Colors */
+  --border-default: 210 14% 80%;      /* #CCD0D4 - Default border (1px) */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Table Colors */
+  --table-header-row: var(--primary-10);              /* Table header row color */
+  --table-header-foreground: var(--gray-900);         /* Text color for table headers */
+  
+  /* === SHADCN/UI TOKEN MAPPING === */
+  
+  /* Background Colors */
+  --background: hsl(var(--gray-0));                    /* White background */
+  --foreground: hsl(var(--gray-900));                  /* Black text primary */
+  
+  /* Card Colors */
+  --card: hsl(var(--gray-0));                          /* White card background */
+  --card-foreground: hsl(var(--gray-900));             /* Black text on cards */
+  --card-border: hsl(var(--border-default));           /* #CCD0D4 - Afianza Black20 border */
+  --card-border-width: 1px;                            /* 1px border width */
+  --card-shadow: none;                                 /* No shadow */
+  --card-radius: 0.25rem;                              /* 4px border radius */
+  
+  /* Popover Colors */
+  --popover: hsl(var(--gray-0));                       /* White popover background */
+  --popover-foreground: hsl(var(--gray-900));          /* Black text in popovers */
+  
+  /* Primary Colors - Using Afianza Primary Blue */
+  --primary: hsl(var(--primary-default));              /* #36a9e1 - Primary blue */
+  --primary-foreground: hsl(var(--gray-0));            /* White text on primary */
+  
+  /* Secondary Colors - Using Afianza Secondary Blue-Gray */
+  --secondary: hsl(var(--primary-10));                 /* #EBF6FC - Light blue background */
+  --secondary-foreground: hsl(var(--gray-900));        /* #01162A - Dark text on secondary */
+  
+  /* Muted Colors - For subtle backgrounds */
+  --muted: hsl(var(--secondary-10));                   /* Very light secondary */
+  --muted-foreground: hsl(var(--gray-600));            /* Medium gray text */
+  
+  /* Accent Colors - Using primary for accents */
+  --accent: hsl(var(--primary-10));                    /* Very light primary */
+  --accent-foreground: hsl(var(--primary-default));    /* Primary blue text */
+  
+  /* Destructive Colors - Using Afianza Error Red */
+  --destructive: hsl(var(--error));                    /* #EE726C - Error red */
+  --destructive-foreground: hsl(var(--gray-0));        /* White text on error */
+  
+  /* Border & Input Colors */
+  --border: hsl(var(--border-default));                /* #CCD0D4 - Default border */
+  --input: hsl(var(--border-default));                 /* Same as border for inputs */
+  --ring: hsl(var(--primary-default));                 /* Primary blue for focus rings */
+  
+  /* Chart Colors - Using various palette colors */
+  --chart-1: hsl(var(--primary-default));              /* Primary blue */
+  --chart-2: hsl(var(--secondary-default));            /* Secondary blue-gray */
+  --chart-3: hsl(var(--success));                      /* Success green */
+  --chart-4: hsl(var(--warning));                      /* Warning orange */
+  --chart-5: hsl(var(--error));                        /* Error red */
+  
+  /* Sidebar Colors - Dark sidebar in light mode */
+  --sidebar: hsl(var(--gray-900));                     /* Dark sidebar (#01162A) */
+  --sidebar-foreground: hsl(var(--secondary-60));      /* Gray text in sidebar */
+  --sidebar-primary: hsl(var(--primary-default));      /* Primary blue in sidebar */
+  --sidebar-primary-foreground: hsl(var(--gray-0));    /* White text on primary */
+  --sidebar-accent: hsl(var(--gray-700));              /* Medium gray accent */
+  --sidebar-accent-foreground: hsl(var(--gray-0));     /* White text on accent */
+  --sidebar-border: hsl(var(--gray-700));              /* Medium gray borders */
+  --sidebar-ring: hsl(var(--primary-default));         /* Primary blue for focus */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.dark {
+  /* === DARK MODE - AFIANZA DESIGN SYSTEM === */
+  
+  /* Background Colors - Using dark grayscale */
+  --background: hsl(var(--gray-900));                  /* #01162A - Dark background */
+  --foreground: hsl(var(--gray-0));                    /* White text on dark */
+  
+  /* Card Colors - Slightly lighter than background */
+  --card: hsl(215 14% 16%);                            /* Lighter than background */
+  --card-foreground: hsl(var(--gray-0));               /* White text on cards */
+  --card-border: hsl(var(--gray-700));                 /* Medium gray border for cards in dark mode */
+  --card-border-width: 1px;                            /* 1px border width */
+  --card-shadow: none;                                 /* No shadow */
+  --card-radius: 0.25rem;                              /* 4px border radius */
+  
+  /* Popover Colors */
+  --popover: hsl(215 14% 16%);                         /* Same as cards */
+  --popover-foreground: hsl(var(--gray-0));            /* White text in popovers */
+  
+  /* Primary Colors - Brighter in dark mode */
+  --primary: hsl(var(--primary-60));                   /* Lighter blue for contrast */
+  --primary-foreground: hsl(var(--gray-900));          /* Dark text on primary */
+  
+  /* Secondary Colors - Adapted for dark mode */
+  --secondary: hsl(var(--secondary-default));          /* Main secondary color */
+  --secondary-foreground: hsl(var(--gray-0));          /* White text on secondary */
+  
+  /* Muted Colors - Using gray tones */
+  --muted: hsl(var(--gray-700));                       /* Medium dark gray */
+  --muted-foreground: hsl(var(--gray-400));            /* Lighter gray text */
+  
+  /* Accent Colors */
+  --accent: hsl(var(--gray-700));                      /* Medium dark gray */
+  --accent-foreground: hsl(var(--primary-60));         /* Light blue text */
+  
+  /* Destructive Colors - Slightly muted in dark */
+  --destructive: hsl(4 71% 75%);                       /* Lighter error red */
+  --destructive-foreground: hsl(var(--gray-900));      /* Dark text on error */
+  
+  /* Border & Input Colors - Subtle borders in dark */
+  --border: hsl(var(--gray-700));                      /* Medium gray borders */
+  --input: hsl(var(--gray-700));                       /* Same as border */
+  --ring: hsl(var(--primary-60));                      /* Light blue focus rings */
+  
+  /* Chart Colors - Adjusted for dark mode */
+  --chart-1: hsl(var(--primary-60));                   /* Light blue */
+  --chart-2: hsl(var(--secondary-80));                 /* Light secondary */
+  --chart-3: hsl(151 48% 65%);                         /* Lighter success green */
+  --chart-4: hsl(42 73% 70%);                          /* Lighter warning orange */
+  --chart-5: hsl(4 71% 75%);                           /* Lighter error red */
+  
+  /* Sidebar Colors - Lighter sidebar in dark mode for contrast */
+  --sidebar: hsl(215 14% 20%);                         /* Lighter dark sidebar for contrast */
+  --sidebar-foreground: hsl(var(--secondary-60));      /* Gray text in sidebar */
+  --sidebar-primary: hsl(var(--primary-60));           /* Light blue in sidebar */
+  --sidebar-primary-foreground: hsl(var(--gray-900));  /* Dark text on primary */
+  --sidebar-accent: hsl(215 14% 25%);                  /* Slightly lighter accent */
+  --sidebar-accent-foreground: hsl(var(--gray-0));     /* White text on accent */
+  --sidebar-border: hsl(215 14% 25%);                  /* Slightly lighter borders */
+  --sidebar-ring: hsl(var(--primary-60));              /* Light blue focus */
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    @apply m-0 align-middle text-5xl font-semibold leading-tight tracking-normal;
+  }
+  
+  /* === AFIANZA CARD STYLES === */
+  /* Custom card styling without shadows and with light borders */
+  
+  /* Target shadcn/ui card components */
+  .card,
+  [data-radix-card],
+  .bg-card {
+    border: var(--card-border-width) solid var(--card-border) !important;
+    border-radius: var(--card-radius) !important;
+    box-shadow: var(--card-shadow) !important;
+    background-color: var(--card) !important;
+    color: var(--card-foreground) !important;
+  }
+  
+  /* Remove shadows from card containers */
+  .shadow,
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: var(--card-shadow) !important;
+  }
+
+  /* === AFIANZA TABLE STYLES === */
+  /* Global table styling for consistent Afianza design */
+  
+  table {
+    @apply min-w-full table-fixed;
+  }
+  
+  thead tr {
+    @apply bg-table-header;
+  }
+  
+  thead th {
+    @apply px-4 py-3 text-left text-sm text-table-header;
+  }
+  
+  tbody tr {
+    @apply bg-white transition-colors hover:bg-muted/50;
+  }
+  
+  tbody td {
+    @apply px-4 py-3 text-sm text-table-header;
+  }
+  
+  /* Table row separators using border-bottom */
+  tbody tr {
+    border-bottom: 1px solid hsl(var(--gray-50));
+  }
+  
+  /* === AFIANZA DISABLED INPUT STYLES === */
+  /* Global styling for disabled inputs using Afianza color system */
+  
+  input:disabled {
+    background-color: hsl(var(--gray-50)) !important; /* Light gray background */
+    color: hsl(var(--gray-600)) !important; /* Medium gray text */
+    border: 1px solid hsl(var(--gray-200)) !important; /* Light gray border */
+    cursor: not-allowed !important;
+    opacity: 0.7 !important;
+    border-radius: 0.375rem !important; /* 6px - consistent with Afianza design */
+  }
+  
+  /* === AFIANZA READONLY INPUT STYLES === */
+  /* Global styling for readonly inputs using Afianza color system */
+  
+  input[readonly] {
+    background-color: hsl(var(--gray-50)) !important; /* Light gray background */
+    color: hsl(var(--gray-800)) !important; /* Medium gray text */
+    border: 1px solid hsl(var(--gray-200)) !important; /* Light gray border */
+    cursor: default !important;
+    opacity: 0.7 !important;
+    border-radius: 0.375rem !important; /* 6px - consistent with Afianza design */
+  }
+
+  /* === AFIANZA TEXTAREA STYLES === */
+  /* Global styling for textarea components using Afianza color system */
+  
+  textarea:disabled {
+    background-color: hsl(var(--gray-50)) !important; /* Light gray background */
+    color: hsl(var(--gray-600)) !important; /* Medium gray text */
+    border: 1px solid hsl(var(--gray-200)) !important; /* Light gray border */
+    cursor: not-allowed !important;
+    opacity: 0.7 !important;
+    border-radius: 0.375rem !important; /* 6px - consistent with Afianza design */
+  }
+
+  textarea[readonly] {
+    background-color: hsl(var(--gray-50)) !important; /* Light gray background */
+    color: hsl(var(--gray-800)) !important; /* Medium gray text */
+    border: 1px solid hsl(var(--gray-200)) !important; /* Light gray border */
+    cursor: default !important;
+    opacity: 0.7 !important;
+    border-radius: 0.375rem !important; /* 6px - consistent with Afianza design */
+  }
+
+  /* Cards con clase main-tab-content - elimina border-radius superior izquierdo para transición fluida */
+  .first-tab-content {
+    border-radius: 0 var(--card-radius) var(--card-radius) var(--card-radius) !important;
+  }
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* === AFIANZA TABS STYLES === */
+/* Estilos base para todas las tabs del sistema */
+
+/* Contenedor principal de tabs - usando role="tablist" */
+[role="tablist"] {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  gap: 0 !important;
+  box-shadow: none !important;
+  height: auto !important;
+  border-radius: 0 !important;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+/* Triggers individuales de tabs - usando role="tab" */
+[role="tab"] {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  color: hsl(var(--gray-600)) !important;
+  position: relative !important;
+  transition: all 0.2s ease-in-out !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  min-height: auto !important;
+  height: auto !important;
+  line-height: 1.5 !important;
+  cursor: pointer !important;
 }
+
+[role="tab"]:hover {
+  color: hsl(var(--gray-700)) !important;
+  background: transparent !important;
+}
+
+[role="tab"][data-state="active"] {
+  color: hsl(var(--gray-900)) !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+[role="tab"][data-state="active"]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: hsl(var(--primary-default));
+  border-radius: 0px;
+}
+
+[role="tab"]:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Paneles de contenido de las tabs - elimina el margin-top */
+[role="tabpanel"] {
+  margin-top: 0 !important;
+}
+
+/* === AFIANZA BUTTON STYLES === */
+/* All buttons use rounded-full and font-semibold by default */
+button,
+.btn,
+[data-radix-button],
+.bg-button {
+  border-radius: 9999px !important;
+  font-weight: 500 !important;
+  font-size: var(--font-size-button-1) !important;
+  line-height: var(--line-height-h6) !important;
+  letter-spacing: 0px !important;
+  vertical-align: middle !important;
+}
+
 button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  cursor: pointer !important;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:disabled {
+  cursor: not-allowed !important;
+}
+
+/* Exception: Buttons used as selectors (dropdowns, popovers, selects) should NOT be rounded-full */
+/* Higher specificity to override the global button rounded-full style */
+/* Target buttons with Radix UI trigger attributes */
+button[data-radix-dropdown-menu-trigger],
+button[data-radix-popover-trigger],
+button[data-radix-select-trigger],
+button[data-radix-dropdown-menu-trigger][data-slot="button"],
+button[data-radix-popover-trigger][data-slot="button"],
+button[data-radix-select-trigger][data-slot="button"],
+[data-radix-dropdown-menu-trigger][data-slot="button"],
+[data-radix-popover-trigger][data-slot="button"],
+[data-radix-select-trigger][data-slot="button"],
+/* Also target buttons that are children of Radix triggers (when using asChild) */
+[data-radix-dropdown-menu-trigger] button,
+[data-radix-popover-trigger] button,
+[data-radix-select-trigger] button,
+/* Target buttons with justify-between class (common in selector buttons) - Higher specificity */
+button[class*="justify-between"],
+button.justify-between {
+  border-radius: 0.375rem !important; /* 6px - Override rounded-full for selectors */
+}
+
+/* === AFIANZA CHECKBOX STYLES === */
+/* Custom checkbox styling to match Afianza design system */
+/* Overrides shadcn/ui default styles - all styling controlled via CSS */
+
+/* Base checkbox container - Radix UI checkbox root */
+/* Overrides: rounded-sm, border-primary, h-4, w-4 */
+[role="checkbox"],
+button[role="checkbox"],
+.peer[role="checkbox"] {
+  border-radius: 0.125rem !important; /* 2px - Slightly rounded corners (overrides rounded-sm) */
+  border: 1.5px solid hsl(var(--gray-700)) !important; /* Dark gray border - Heavier border (overrides border-primary) */
+  background-color: hsl(var(--gray-0)) !important; /* White background */
+  width: 1rem !important; /* 16px (overrides h-4 w-4) */
+  height: 1rem !important; /* 16px */
+  min-width: 1rem !important;
+  min-height: 1rem !important;
+  padding: 0 !important;
+  margin: 0 0.5rem 0 0 !important; /* 8px spacing between checkbox and label */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Hover state */
+[role="checkbox"]:hover:not(:disabled),
+button[role="checkbox"]:hover:not(:disabled),
+.peer[role="checkbox"]:hover:not(:disabled) {
+  border-color: hsl(var(--gray-600)) !important;
+}
+
+/* Focus state */
+/* Overrides: focus-visible:ring-2, focus-visible:ring-ring, focus-visible:ring-offset-2 */
+[role="checkbox"]:focus-visible,
+button[role="checkbox"]:focus-visible,
+.peer[role="checkbox"]:focus-visible {
+  outline: 2px solid hsl(var(--primary-default)) !important;
+  outline-offset: 2px !important;
+  box-shadow: none !important; /* Remove ring shadow from shadcn */
+  ring-width: 0 !important; /* Remove ring */
+}
+
+/* Checked state - white background with dark gray checkmark */
+/* Overrides: data-[state=checked]:bg-primary, data-[state=checked]:text-primary-foreground */
+[role="checkbox"][data-state="checked"],
+button[role="checkbox"][data-state="checked"],
+.peer[role="checkbox"][data-state="checked"] {
+  background-color: hsl(var(--gray-0)) !important; /* White background (overrides bg-primary) */
+  border: 1.5px solid hsl(var(--gray-700)) !important; /* Dark gray border - Heavier border */
+  color: hsl(var(--gray-700)) !important; /* Dark gray text for checkmark (overrides text-primary-foreground) */
+}
+
+/* Checkmark icon inside checkbox */
+[role="checkbox"] svg,
+button[role="checkbox"] svg {
+  width: 1rem !important; /* 16px */
+  height: 1rem !important; /* 16px */
+  color: hsl(var(--gray-700)) !important; /* Dark gray checkmark (#515869) */
+  stroke-width: 3.5 !important; /* Heavier checkmark */
+}
+
+/* Disabled state */
+[role="checkbox"]:disabled,
+button[role="checkbox"]:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  background-color: hsl(var(--gray-50)) !important;
+  border-color: hsl(var(--gray-200)) !important;
+}
+
+/* Checkbox indicator container (Radix UI) */
+[role="checkbox"] > span,
+button[role="checkbox"] > span {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* === AFIANZA DESIGN SYSTEM UTILITY CLASSES === */
+@utility bg-primary-80 {
+  background-color: hsl(var(--primary-80));
+}
+
+@utility bg-primary-60 {
+  background-color: hsl(var(--primary-60));
+}
+
+@utility bg-primary-40 {
+  background-color: hsl(var(--primary-40));
+}
+
+@utility bg-primary-20 {
+  background-color: hsl(var(--primary-20));
+}
+
+@utility bg-primary-10 {
+  background-color: hsl(var(--primary-10));
+}
+
+@utility bg-primary-5 {
+  background-color: hsl(var(--primary-5));
+}
+
+@utility bg-secondary-80 {
+  background-color: hsl(var(--secondary-80));
+}
+
+@utility bg-secondary-60 {
+  background-color: hsl(var(--secondary-60));
+}
+
+@utility bg-secondary-40 {
+  background-color: hsl(var(--secondary-40));
+}
+
+@utility bg-secondary-20 {
+  background-color: hsl(var(--secondary-20));
+}
+
+@utility bg-secondary-10 {
+  background-color: hsl(var(--secondary-10));
+}
+
+@utility bg-secondary-5 {
+  background-color: hsl(var(--secondary-5));
+}
+
+@utility bg-table-header {
+  background-color: hsl(var(--table-header-row));
+}
+
+@utility text-table-header {
+  color: hsl(var(--table-header-foreground));
+}
+
+@utility text-success {
+  color: hsl(var(--success));
+}
+
+@utility text-warning {
+  color: hsl(var(--warning));
+}
+
+@utility text-error {
+  color: hsl(var(--error));
+}
+
+@utility bg-success {
+  background-color: hsl(var(--success));
+}
+
+@utility bg-warning {
+  background-color: hsl(var(--warning));
+}
+
+@utility bg-error {
+  background-color: hsl(var(--error));
+}
+
+@utility border-success {
+  border-color: hsl(var(--success));
+}
+
+@utility border-warning {
+  border-color: hsl(var(--warning));
+}
+
+@utility border-error {
+  border-color: hsl(var(--error));
+}
+
+/* === AFIANZA SELECT/DROPDOWN STYLES === */
+/* Global styling for select/dropdown components using Afianza design system */
+
+/* Select Trigger - Main dropdown button */
+button[data-radix-select-trigger],
+[role="combobox"] {
+  border: 1px solid hsl(var(--border-default)) !important; /* #CCD0D4 - Light gray border */
+  border-radius: 0.375rem !important; /* 6px - Slightly rounded corners */
+  background-color: hsl(var(--gray-0)) !important; /* White background */
+  color: hsl(var(--gray-900)) !important; /* Dark gray text */
+  padding: 0.5rem 0.75rem !important; /* px-3 py-2 equivalent */
+  font-size: 0.875rem !important; /* text-sm */
+  line-height: 1.25rem !important;
+  min-height: 2.5rem !important; /* h-10 */
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Select Trigger - Placeholder text color (when data-placeholder attribute is present) */
+button[data-radix-select-trigger][data-placeholder] > span,
+[role="combobox"][data-placeholder] > span {
+  color: hsl(var(--gray-600)) !important; /* Medium gray for placeholder */
+}
+
+/* Select Trigger - Hover state */
+button[data-radix-select-trigger]:hover:not(:disabled),
+[role="combobox"]:hover:not(:disabled) {
+  border-color: hsl(var(--gray-400)) !important;
+}
+
+/* Select Trigger - Focus state */
+button[data-radix-select-trigger]:focus,
+[role="combobox"]:focus {
+  outline: 2px solid hsl(var(--primary-default)) !important;
+  outline-offset: 2px !important;
+  border-color: hsl(var(--primary-default)) !important;
+}
+
+/* Select Trigger - Disabled state */
+button[data-radix-select-trigger]:disabled,
+[role="combobox"]:disabled {
+  background-color: hsl(var(--gray-50)) !important;
+  color: hsl(var(--gray-600)) !important;
+  border-color: hsl(var(--gray-200)) !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+/* Chevron icon inside select trigger - Black color, no opacity */
+button[data-radix-select-trigger] svg,
+[role="combobox"] svg,
+button[data-radix-select-trigger] [data-radix-select-icon] svg,
+[role="combobox"] [data-radix-select-icon] svg {
+  color: hsl(var(--gray-900)) !important; /* Black chevron */
+  opacity: 1 !important; /* Remove opacity */
+  width: 1rem !important; /* h-4 */
+  height: 1rem !important; /* w-4 */
+}
+
+/* Select Value text - Ensure proper text color when value is selected */
+button[data-radix-select-trigger]:not([data-placeholder]) > span,
+[role="combobox"]:not([data-placeholder]) > span {
+  color: hsl(var(--gray-900)) !important; /* Dark gray text */
+}
+
+/* Select Content - Dropdown menu */
+/* Override Radix UI popper wrapper min-width for Select */
+[data-radix-popper-content-wrapper]:has([data-radix-select-content]) {
+  min-width: var(--radix-select-trigger-width, var(--radix-popper-anchor-width, 8rem)) !important;
+  width: var(--radix-select-trigger-width, var(--radix-popper-anchor-width, 8rem)) !important;
+}
+
+[data-radix-select-content] {
+  border: 1px solid hsl(var(--border-default)) !important;
+  border-radius: 0.375rem !important; /* 6px - Match trigger */
+  background-color: hsl(var(--gray-0)) !important; /* White background */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  width: var(--radix-select-trigger-width, var(--radix-popper-anchor-width, 8rem)) !important;
+  min-width: var(--radix-select-trigger-width, var(--radix-popper-anchor-width, 8rem)) !important;
+  max-width: var(--radix-select-trigger-width, var(--radix-popper-anchor-width, 8rem)) !important;
+  max-height: 20rem !important; /* 320px - Maximum height for dropdown */
+  overflow-y: auto !important; /* Enable vertical scroll */
+  overflow-x: hidden !important; /* Hide horizontal scroll */
+}
+
+/* Select Viewport - Container for select items */
+[data-radix-select-viewport] {
+  max-height: 20rem !important; /* 320px - Match content max-height */
+  overflow-y: auto !important; /* Enable vertical scroll */
+  overflow-x: hidden !important; /* Hide horizontal scroll */
+}
+
+/* Select Item - Individual option in dropdown */
+[data-radix-select-item] {
+  color: hsl(var(--gray-900)) !important; /* Dark gray text */
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.875rem !important; /* text-sm */
+  border-radius: 0.25rem !important; /* 4px */
+  cursor: pointer !important;
+  transition: background-color 0.15s ease-in-out !important;
+}
+
+/* Select Item - Hover state */
+[data-radix-select-item]:hover {
+  background-color: hsl(var(--primary-10)) !important; /* Light blue background on hover */
+  color: hsl(var(--gray-900)) !important;
+}
+
+/* Select Item - Focus/Highlighted state */
+[data-radix-select-item][data-highlighted] {
+  background-color: hsl(var(--primary-10)) !important;
+  color: hsl(var(--gray-900)) !important;
+  outline: none !important;
+}
+
+/* Select Item - Selected state */
+[data-radix-select-item][data-state="checked"] {
+  background-color: hsl(var(--primary-10)) !important;
+  color: hsl(var(--gray-900)) !important;
+}
+
+/* Select Item - Disabled state */
+[data-radix-select-item][data-disabled] {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+/* === AFIANZA DROPDOWN MENU STYLES === */
+/* Global styling for dropdown menu components using Afianza design system */
+
+/* Dropdown Menu Trigger - Button with outline variant used as dropdown trigger */
+button[data-radix-dropdown-menu-trigger],
+button[data-radix-popover-trigger] {
+  border: 1px solid hsl(var(--border-default)) !important; /* #CCD0D4 - Light gray border */
+  border-radius: 0.375rem !important; /* 6px - Slightly rounded corners */
+  background-color: hsl(var(--gray-0)) !important; /* White background */
+  color: hsl(var(--gray-900)) !important; /* Dark gray text */
+  padding: 0.5rem 0.75rem !important; /* px-3 py-2 equivalent */
+  font-size: 0.875rem !important; /* text-sm */
+  line-height: 1.25rem !important;
+  min-height: 2.5rem !important; /* h-10 */
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Dropdown Menu Trigger - Hover state */
+button[data-radix-dropdown-menu-trigger]:hover:not(:disabled),
+button[data-radix-popover-trigger]:hover:not(:disabled) {
+  border-color: hsl(var(--gray-400)) !important;
+  background-color: hsl(var(--gray-0)) !important;
+}
+
+/* Dropdown Menu Trigger - Focus state */
+button[data-radix-dropdown-menu-trigger]:focus,
+button[data-radix-popover-trigger]:focus {
+  outline: 2px solid hsl(var(--primary-default)) !important;
+  outline-offset: 2px !important;
+  border-color: hsl(var(--primary-default)) !important;
+}
+
+/* Dropdown Menu Trigger - Disabled state */
+button[data-radix-dropdown-menu-trigger]:disabled,
+button[data-radix-popover-trigger]:disabled {
+  background-color: hsl(var(--gray-50)) !important;
+  color: hsl(var(--gray-600)) !important;
+  border-color: hsl(var(--gray-200)) !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+/* Chevron icon inside dropdown/popover trigger - Black color, no opacity */
+button[data-radix-dropdown-menu-trigger] svg,
+button[data-radix-popover-trigger] svg {
+  color: hsl(var(--gray-900)) !important; /* Black chevron */
+  opacity: 1 !important; /* Remove opacity */
+  width: 1rem !important; /* h-4 */
+  height: 1rem !important; /* w-4 */
+}
+
+/* Dropdown Menu Content - Dropdown menu */
+[data-radix-dropdown-menu-content] {
+  border: 1px solid hsl(var(--border-default)) !important;
+  border-radius: 0.375rem !important; /* 6px - Match trigger */
+  background-color: hsl(var(--gray-0)) !important; /* White background */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  max-height: 20rem !important; /* 320px - Maximum height with scroll */
+  overflow-y: auto !important; /* Enable vertical scroll */
+  overflow-x: hidden !important; /* Hide horizontal scroll */
+}
+
+/* Dropdown Menu Item - Individual option in dropdown */
+[data-radix-dropdown-menu-item] {
+  color: hsl(var(--gray-900)) !important; /* Dark gray text */
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.875rem !important; /* text-sm */
+  border-radius: 0.25rem !important; /* 4px */
+  cursor: pointer !important;
+  transition: background-color 0.15s ease-in-out !important;
+}
+
+/* Dropdown Menu Item - Hover state */
+[data-radix-dropdown-menu-item]:hover {
+  background-color: hsl(var(--primary-10)) !important; /* Light blue background on hover */
+  color: hsl(var(--gray-900)) !important;
+}
+
+/* Dropdown Menu Item - Focus state */
+[data-radix-dropdown-menu-item][data-highlighted] {
+  background-color: hsl(var(--primary-10)) !important;
+  color: hsl(var(--gray-900)) !important;
+  outline: none !important;
+}
+
+/* Dropdown Menu Item - Disabled state */
+[data-radix-dropdown-menu-item][data-disabled] {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+
+/* === AFIANZA POPOVER STYLES === */
+/* Global styling for popover components (used in Autocomplete) */
+
+/* Popover Content - Used in Autocomplete */
+[data-radix-popover-content] {
+  border: 1px solid hsl(var(--border-default)) !important;
+  border-radius: 0.375rem !important; /* 6px - Match trigger */
+  background-color: hsl(var(--gray-0)) !important; /* White background */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Autocomplete items inside PopoverContent - Custom div items */
+[data-radix-popover-content] div[class*="cursor-pointer"] {
+  color: hsl(var(--gray-900)) !important; /* Dark gray text */
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.875rem !important; /* text-sm */
+  border-radius: 0.25rem !important; /* 4px */
+  transition: background-color 0.15s ease-in-out !important;
+}
+
+/* Autocomplete items - Hover state (override hover:bg-gray-100) */
+[data-radix-popover-content] div[class*="cursor-pointer"]:hover {
+  background-color: hsl(var(--primary-10)) !important; /* Light blue background on hover */
+  color: hsl(var(--gray-900)) !important;
+}
+
+/* Autocomplete items - Selected state (override bg-gray-200) */
+[data-radix-popover-content] div[class*="bg-gray-200"] {
+  background-color: hsl(var(--primary-10)) !important;
+  color: hsl(var(--gray-900)) !important;
+}
+
+/* === AFIANZA AUTOCOMPLETE POPOVER STYLES === */
+/* Styles for Autocomplete component popover - width matches trigger minimum */
+
+/* Autocomplete Popover Content - Minimum width equals trigger width, can expand if needed */
+.autocomplete-popover-content {
+  width: max-content !important;
+  /* min-width is set inline from component based on trigger width */
+}
+
+/* Autocomplete Search Wrapper - Container for search icon and input */
+.autocomplete-search-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Autocomplete Search Icon - Positioned on the left */
+.autocomplete-search-icon {
+  position: absolute;
+  left: 0.75rem; /* 12px - matches input padding */
+  color: hsl(var(--gray-600)) !important; /* Medium gray color */
+  width: 1rem !important; /* 16px */
+  height: 1rem !important; /* 16px */
+  pointer-events: none; /* Don't interfere with input clicks */
+  z-index: 1;
+}
+
+/* Autocomplete Search Input - Padding on left for icon */
+.autocomplete-search-input {
+  padding-left: 2.5rem !important; /* Space for icon (12px icon + 12px padding + 4px gap) */
+}
+
+/* === AFIANZA BUTTON OUTLINE VARIANT AS SELECTOR STYLES === */
+/* Style buttons with outline variant that act as selectors (when used with DropdownMenuTrigger or PopoverTrigger) */
+/* These styles override the global button rounded-full style for selector buttons */
+
+/* Target buttons that receive Radix UI trigger attributes (when using asChild) */
+/* Using higher specificity to override the global button border-radius */
+button[data-radix-dropdown-menu-trigger],
+button[data-radix-popover-trigger],
+[data-radix-dropdown-menu-trigger] > button,
+[data-radix-popover-trigger] > button,
+button[data-radix-dropdown-menu-trigger][data-slot="button"],
+button[data-radix-popover-trigger][data-slot="button"] {
+  border: 1px solid hsl(var(--border-default)) !important; /* #CCD0D4 - Light gray border */
+  border-radius: 0.375rem !important; /* 6px - Slightly rounded corners - OVERRIDE rounded-full */
+  background-color: hsl(var(--gray-0)) !important; /* White background */
+  color: hsl(var(--gray-900)) !important; /* Dark gray text */
+  padding: 0.5rem 0.75rem !important; /* px-3 py-2 equivalent */
+  font-size: 0.875rem !important; /* text-sm */
+  line-height: 1.25rem !important;
+  min-height: 2.5rem !important; /* h-10 */
+  transition: all 0.2s ease-in-out !important;
+  box-shadow: none !important; /* Remove shadow-xs from outline variant */
+}
+
+/* Hover state for buttons used as selectors */
+button[data-radix-dropdown-menu-trigger]:hover:not(:disabled),
+button[data-radix-popover-trigger]:hover:not(:disabled),
+[data-radix-dropdown-menu-trigger] > button:hover:not(:disabled),
+[data-radix-popover-trigger] > button:hover:not(:disabled) {
+  border-color: hsl(var(--gray-400)) !important;
+  background-color: hsl(var(--gray-0)) !important;
+  color: hsl(var(--gray-900)) !important;
+}
+
+/* Focus state for buttons used as selectors */
+button[data-radix-dropdown-menu-trigger]:focus,
+button[data-radix-popover-trigger]:focus,
+[data-radix-dropdown-menu-trigger] > button:focus,
+[data-radix-popover-trigger] > button:focus {
+  outline: 2px solid hsl(var(--primary-default)) !important;
+  outline-offset: 2px !important;
+  border-color: hsl(var(--primary-default)) !important;
+}
+
+/* Disabled state for buttons used as selectors */
+button[data-radix-dropdown-menu-trigger]:disabled,
+button[data-radix-popover-trigger]:disabled,
+[data-radix-dropdown-menu-trigger] > button:disabled,
+[data-radix-popover-trigger] > button:disabled {
+  background-color: hsl(var(--gray-50)) !important;
+  color: hsl(var(--gray-600)) !important;
+  border-color: hsl(var(--gray-200)) !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+/* ChevronDown icon in buttons used as selectors */
+button[data-radix-dropdown-menu-trigger] svg,
+button[data-radix-popover-trigger] svg,
+[data-radix-dropdown-menu-trigger] > button svg,
+[data-radix-popover-trigger] > button svg {
+  color: hsl(var(--gray-900)) !important; /* Black chevron */
+  opacity: 1 !important; /* Remove opacity */
+  width: 1rem !important; /* h-4 */
+  height: 1rem !important; /* w-4 */
+}
+
+/* FINAL OVERRIDE: Ensure selector buttons are NOT rounded-full - Maximum specificity */
+/* This rule must be at the end to override all previous button border-radius rules */
+button[data-radix-dropdown-menu-trigger],
+button[data-radix-popover-trigger],
+button[data-radix-select-trigger],
+button[data-radix-dropdown-menu-trigger][data-slot="button"],
+button[data-radix-popover-trigger][data-slot="button"],
+button[data-radix-select-trigger][data-slot="button"],
+[data-radix-dropdown-menu-trigger] button,
+[data-radix-popover-trigger] button,
+[data-radix-select-trigger] button,
+button.justify-between,
+button[class*="justify-between"] {
+  border-radius: 0.375rem !important; /* 6px - MUST override rounded-full */
+}
+
+/* === AFIANZA DATEPICKER TRIGGER STYLES === */
+/* Style the datepicker trigger button to match input styling */
+.datepicker-trigger {
+  border: 1px solid hsl(var(--border-default)) !important; /* #CCD0D4 - Light gray border */
+  border-radius: 0.375rem !important; /* 6px - rounded-lg equivalent */
+  background-color: hsl(var(--gray-0)) !important; /* White background */
+  color: hsl(var(--gray-900)) !important; /* Dark gray text */
+  padding: 0.5rem 0.75rem !important; /* px-3 py-2 equivalent */
+  font-size: 0.875rem !important; /* text-sm on md screens */
+  line-height: 1.25rem !important;
+  min-height: 2.5rem !important; /* h-10 */
+  transition: all 0.2s ease-in-out !important;
+  cursor: pointer !important;
+}
+
+/* Datepicker trigger - Placeholder text color (when no value) */
+.datepicker-trigger.text-muted-foreground {
+  color: hsl(var(--gray-600)) !important; /* Medium gray for placeholder */
+}
+
+/* Datepicker trigger - Hover state */
+.datepicker-trigger:hover:not(:disabled) {
+  border-color: hsl(var(--gray-400)) !important;
+}
+
+/* Datepicker trigger - Focus state */
+.datepicker-trigger:focus-visible {
+  outline: none !important;
+  border-color: hsl(var(--primary-default)) !important;
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.5) !important;
+}
+
+/* Datepicker trigger - Disabled state */
+.datepicker-trigger:disabled {
+  background-color: hsl(var(--gray-50)) !important;
+  color: hsl(var(--gray-600)) !important;
+  border-color: hsl(var(--gray-200)) !important;
+  cursor: not-allowed !important;
+  opacity: 0.5 !important;
+}
+
+/* Datepicker trigger icons - Calendar and X icons */
+.datepicker-trigger svg {
+  color: hsl(var(--gray-900)) !important; /* Black icons */
+  opacity: 1 !important;
+  width: 1rem !important; /* h-4 */
+  height: 1rem !important; /* w-4 */
 }
