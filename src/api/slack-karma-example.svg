@@ -1,0 +1,37 @@
+<svg width="600" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="slackBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2D2D2D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A1A1A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="200" fill="url(#slackBg)" rx="8"/>
+  
+  <!-- Slack message header -->
+  <circle cx="50" cy="40" r="20" fill="#4A154B"/>
+  <text x="50" y="45" fill="white" font-family="Arial" font-size="14" text-anchor="middle">JD</text>
+  <text x="85" y="40" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Jane Doe</text>
+  <text x="160" y="40" fill="#888" font-family="Arial, sans-serif" font-size="12">10:30 AM</text>
+  
+  <!-- Message content -->
+  <text x="85" y="70" fill="#E8E8E8" font-family="Arial, sans-serif" font-size="14">
+    <tspan fill="#1264A3">@John Smith</tspan>
+    <tspan fill="#E8E8E8"> ++ for the amazing help with the demo!</tspan>
+  </text>
+  
+  <!-- Bot response -->
+  <circle cx="50" cy="120" r="20" fill="#611F69"/>
+  <text x="50" y="125" fill="white" font-family="Arial" font-size="10" text-anchor="middle">🚀</text>
+  <text x="85" y="120" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Apogee</text>
+  <text x="140" y="120" fill="#888" font-family="Arial, sans-serif" font-size="12">BOT</text>
+  <text x="170" y="120" fill="#888" font-family="Arial, sans-serif" font-size="12">10:30 AM</text>
+  
+  <text x="85" y="150" fill="#E8E8E8" font-family="Arial, sans-serif" font-size="14">
+    <tspan fill="#1264A3">@John Smith</tspan>
+    <tspan fill="#E8E8E8"> now has 127 Orbitantmeters! 🎉</tspan>
+  </text>
+  
+  <!-- Reactions -->
+  <rect x="85" y="165" width="40" height="24" fill="#3D3D3D" rx="4"/>
+  <text x="105" y="182" fill="#E8E8E8" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">🙌 2</text>
+</svg>
