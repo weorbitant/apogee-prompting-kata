@@ -78,7 +78,7 @@ export default function Landing() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                Eternal glory! The winning prompt will become part of Apogee to be ran weekly on our bot. You have a set of interesting raw data at hand, the limit is your imagination.
+                Eternal glory! The winning prompt will become part of Apogee to be run weekly on our bot. You have a set of interesting raw data at hand, the limit is your imagination.
               </p>
               <div className="mt-4">
                 <h3 className="font-semibold text-lg mb-3">Slack Example</h3>
@@ -103,7 +103,7 @@ export default function Landing() {
             </CardHeader>
             <CardContent>
               <p>
-                If you are new to prompting, here is an 8 minute amazing video that may be helpful:{" "}
+                If you are new to prompting, here is an 8-minute amazing video that may be helpful:{" "}
                 <a
                   href="https://www.youtube.com/watch?v=jC4v5AS4RIM"
                   target="_blank"
