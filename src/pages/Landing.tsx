@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import heroImage from "@/api/Hero2650.jpg";
 import logo from "@/api/Logo-Orbitant.svg";
-import slackExample from "@/api/slack-karma-example.svg";
 
 export default function Landing() {
   return (
@@ -65,53 +64,6 @@ export default function Landing() {
             <CardContent>
               <p>
                 The idea of this kata is to improve our prompting skills by playing around with our own Apogee data. The goal is to come up with a prompt that is capable of surfacing the "hidden gossip" behind our Apogee usage of the last week.
-              </p>
-            </CardContent>
-          </Card>
-
-          {/* What's in there for you */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">
-                <h2>What's in There for You</h2>
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p>
-                Eternal glory! The winning prompt will become part of Apogee to be run weekly on our bot. You have a set of interesting raw data at hand, the limit is your imagination.
-              </p>
-              <div className="mt-4">
-                <h3 className="font-semibold text-lg mb-3">Slack Example</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Here's an example of how karma is given in our Slack channel:
-                </p>
-                <img
-                  src={slackExample}
-                  alt="Example of giving karma in Slack - shows a user giving points to another user with a message"
-                  className="w-full max-w-lg rounded-lg border border-border shadow-sm"
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Useful bits */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">
-                <h2>Useful Bits</h2>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>
-                If you are new to prompting, here is an 8-minute amazing video that may be helpful:{" "}
-                <a
-                  href="https://www.youtube.com/watch?v=jC4v5AS4RIM"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary underline hover:text-primary/80"
-                >
-                  Master the Perfect ChatGPT Prompt Formula
-                </a>
               </p>
             </CardContent>
           </Card>
@@ -215,6 +167,42 @@ export default function Landing() {
                   <strong>N.B.</strong> the tools in the code will give back some dummy data avoiding to hit our Apogee DB directly during the Kata
                 </p>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* What's in there for you */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl">
+                <h2>What's in There for You</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Eternal glory! The winning prompt will become part of Apogee to be run weekly on our bot. You have a set of interesting raw data at hand, the limit is your imagination.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Useful bits */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl">
+                <h2>Useful Bits</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                If you are new to prompting, here is an 8-minute amazing video that may be helpful:{" "}
+                <a
+                  href="https://www.youtube.com/watch?v=jC4v5AS4RIM"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline hover:text-primary/80"
+                >
+                  Master the Perfect ChatGPT Prompt Formula
+                </a>
+              </p>
             </CardContent>
           </Card>
 
