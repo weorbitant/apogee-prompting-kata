@@ -170,6 +170,42 @@ export default function Landing() {
             </CardContent>
           </Card>
 
+          {/* What's in there for you */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl">
+                <h2>What's in There for You</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                Eternal glory! The winning prompt will become part of Apogee to be run weekly on our bot. You have a set of interesting raw data at hand, the limit is your imagination.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Useful bits */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl">
+                <h2>Useful Bits</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                If you are new to prompting, here is an 8-minute amazing video that may be helpful:{" "}
+                <a
+                  href="https://www.youtube.com/watch?v=jC4v5AS4RIM"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline hover:text-primary/80"
+                >
+                  Master the Perfect ChatGPT Prompt Formula
+                </a>
+              </p>
+            </CardContent>
+          </Card>
+
           {/* CTA */}
           <div className="flex justify-center pt-4">
             <Link to="/chat">
