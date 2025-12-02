@@ -33,7 +33,7 @@ export function ToolSelector({ tools, selectedTools, onToggleTool }: ToolSelecto
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
-        <label className="text-sm font-medium">Select Tools</label>
+        <p className="text-sm font-medium">Select Tools</p>
       </div>
       <div className="space-y-3">
         {tools.map((toolId) => {
@@ -46,23 +46,23 @@ export function ToolSelector({ tools, selectedTools, onToggleTool }: ToolSelecto
                   checked={selectedTools.has(toolId)}
                   onCheckedChange={() => onToggleTool(toolId)}
                   className="mt-0.5"
+                  aria-labelledby={`info-${toolId}`}
                 />
                 <div className="flex items-center gap-2">
                   <label
+                    id={`info-${toolId}`}
                     htmlFor={toolId}
                     className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer flex-1"
                   >
                     {info.label}
                   </label>
-                  <Tooltip>
+                  <Tooltip aria-hidden="true">
                     <TooltipTrigger asChild>
-                      <button
-                        type="button"
+                      <span
                         className="ml-2 text-foreground opacity-100 transition-opacity"
-                        aria-label={`Info about ${info.label}`}
                       >
                         <Info className="h-4 w-4" />
-                      </button>
+                      </span>
                     </TooltipTrigger>
                     <TooltipContent side="right" className="max-w-sm">
                       <p>{info.description}</p>

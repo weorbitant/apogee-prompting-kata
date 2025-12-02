@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import Landing from "./pages/Landing";
-import App from "./App";
+import Kata from "./pages/Kata";
 import NotFound from "./pages/NotFound";
 
 export const router = createBrowserRouter([
@@ -10,7 +10,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/chat",
-    element: <App />,
+    element: <Kata />,
   },
   {
     path: "*",
