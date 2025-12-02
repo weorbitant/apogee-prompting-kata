@@ -1,3 +1,6 @@
+/*
+* Ah Ah Ah, you didn't say the magic word! Don't touch this file unless you know what you are doing.
+*/
 import express, { Request, Response } from "express";
 import cors from "cors";
 import { main } from "./lib/openai/app.js";

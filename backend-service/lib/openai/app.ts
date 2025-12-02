@@ -1,3 +1,6 @@
+/*
+* Ah Ah Ah, you didn't say the magic word! Don't touch this file unless you know what you are doing.
+*/
 import lastWeekLeaderboard from "../../mocks/lastWeekLeaderboard.json";
 import lastWeekTransactions from "../../mocks/lastWeekTransactions.json";
 import todayLeaderboard from "../../mocks/todayLeaderboard.json";

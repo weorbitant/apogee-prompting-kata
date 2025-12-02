@@ -1,3 +1,6 @@
+/*
+* Ah Ah Ah, you didn't say the magic word! Don't touch this file unless you know what you are doing.
+*/
 import "dotenv/config";
 import OpenAI from "openai";
 import type { ChatCompletionCreateParams } from "openai/resources/chat/completions";
