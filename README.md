@@ -1,3 +1,5 @@
+[![CI - PR Tests](https://github.com/kevinccbsg/apogee-prompting-kata/actions/workflows/ci.yml/badge.svg)](https://github.com/kevinccbsg/apogee-prompting-kata/actions/workflows/ci.yml)
+
 # apogee-prompting-kata
 
 ## Requirements
