@@ -124,7 +124,7 @@ export default function App() {
               {error && (
                 <div className="p-4 rounded-md bg-destructive/10 border border-destructive/20">
                   <p className="text-sm text-destructive font-medium">Error</p>
-                  <p className="text-sm text-destructive/80 mt-1">{error}</p>
+                  <p className="text-sm text-destructive mt-1">{error}</p>
                 </div>
               )}
 

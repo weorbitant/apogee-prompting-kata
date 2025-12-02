@@ -129,4 +129,25 @@ describe("App Form", () => {
     // verify select all is checked
     screenDom.getByRole("checkbox", { name: "Select All", checked: true });
   });
+
+  it("keyboard navigation should work", async () => {
+    await twd.visit("/chat");
+
+    const user = userEvent.setup();
+
+    // get all tool checkboxes
+    await user.tab();
+    const backToLanding = screenDom.getByRole("link", { name: "← Back to Landing" });
+    twd.should(backToLanding, "be.focused");
+    await user.tab();
+    await user.keyboard('write some text')
+    const textarea = screenDom.getByLabelText("Main prompt input (required)");
+    twd.should(textarea, "have.text", "write some text");
+    await user.tab();
+    await user.keyboard(' ');
+    screenDom.getByRole("checkbox", { name: "Get Last Week Leaderboard", checked: true });
+    screenDom.getByRole("checkbox", { name: "Get Last Week Transactions", checked: true });
+    screenDom.getByRole("checkbox", { name: "Get Today Leaderboard", checked: true });
+    screenDom.getByRole("checkbox", { name: "Select All", checked: true });
+  });
 });
