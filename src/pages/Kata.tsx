@@ -33,6 +33,15 @@ export default function App() {
     });
   };
 
+  const handleSelectAll = () => {
+    const allSelected = tools.every((tool) => selectedTools.has(tool));
+    if (allSelected) {
+      setSelectedTools(new Set());
+    } else {
+      setSelectedTools(new Set(tools));
+    }
+  };
+
   const handleSubmit = async () => {
     if (!prompt.trim() || selectedTools.size === 0) {
       return;
@@ -101,6 +110,7 @@ export default function App() {
                 tools={tools}
                 selectedTools={selectedTools}
                 onToggleTool={toggleTool}
+                onSelectAll={handleSelectAll}
               />
 
               <Button

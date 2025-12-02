@@ -37,7 +37,7 @@ describe("App Form", () => {
     twd.should(tool3, "be.visible");
 
     // Fill form
-    const textarea = screenDom.getByLabelText("Prompt");
+    const textarea = screenDom.getByLabelText("Main prompt input (required)");
     await user.type(textarea, "What are the most interesting insights from last week?");
 
     await user.click(tool1);
@@ -69,7 +69,7 @@ describe("App Form", () => {
     const user = userEvent.setup();
 
     // Fill form
-    const textarea = screenDom.getByLabelText("Prompt");
+    const textarea = screenDom.getByLabelText("Main prompt input (required)");
     await user.type(textarea, "Test prompt");
 
     const tool1 = screenDom.getByLabelText("Get Last Week Leaderboard");
@@ -85,5 +85,48 @@ describe("App Form", () => {
     // Check error heading is visible
     const errorHeading = screenDom.getByText("Error");
     twd.should(errorHeading, "be.visible");
+  });
+
+  it("should select all tools when clicking Select All checkbox", async () => {
+    await twd.visit("/chat");
+
+    const user = userEvent.setup();
+
+    // Get all tool checkboxes - verify they are unchecked initially
+    screenDom.getByRole("checkbox", { name: "Get Last Week Leaderboard", checked: false });
+    screenDom.getByRole("checkbox", { name: "Get Last Week Transactions", checked: false });
+    screenDom.getByRole("checkbox", { name: "Get Today Leaderboard", checked: false });
+
+    // Find and click Select All checkbox
+    const selectAllCheckbox = screenDom.getByRole("checkbox", { name: "Select All", checked: false });
+    twd.should(selectAllCheckbox, "be.visible");
+    await user.click(selectAllCheckbox);
+
+    // Verify Select All checkbox is now checked
+    screenDom.getByRole("checkbox", { name: "Select All", checked: true });
+
+    // Verify all tool checkboxes are now checked
+    screenDom.getByRole("checkbox", { name: "Get Last Week Leaderboard", checked: true });
+    screenDom.getByRole("checkbox", { name: "Get Last Week Transactions", checked: true });
+    screenDom.getByRole("checkbox", { name: "Get Today Leaderboard", checked: true });
+
+    // Click Select All checkbox again to deselect all
+    await user.click(selectAllCheckbox);
+
+    // Verify Select All checkbox is now unchecked
+    screenDom.getByRole("checkbox", { name: "Select All", checked: false });
+
+    // Verify all tool checkboxes are unchecked again
+    const tool1 = screenDom.getByRole("checkbox", { name: "Get Last Week Leaderboard", checked: false });
+    const tool2 = screenDom.getByRole("checkbox", { name: "Get Last Week Transactions", checked: false });
+    const tool3 = screenDom.getByRole("checkbox", { name: "Get Today Leaderboard", checked: false });
+
+    // verify select all is checked after selecting all tools
+    await user.click(tool1);
+    await user.click(tool2);
+    await user.click(tool3);
+
+    // verify select all is checked
+    screenDom.getByRole("checkbox", { name: "Select All", checked: true });
   });
 });

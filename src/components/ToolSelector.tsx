@@ -12,6 +12,7 @@ interface ToolSelectorProps {
   tools: Tool[];
   selectedTools: Set<Tool>;
   onToggleTool: (toolId: Tool) => void;
+  onSelectAll?: () => void;
 }
 
 const toolInfo: Record<Tool, { label: string; description: string }> = {
@@ -29,13 +30,31 @@ const toolInfo: Record<Tool, { label: string; description: string }> = {
   },
 };
 
-export function ToolSelector({ tools, selectedTools, onToggleTool }: ToolSelectorProps) {
+export function ToolSelector({ tools, selectedTools, onToggleTool, onSelectAll }: ToolSelectorProps) {
+  const allSelected = tools.length > 0 && tools.every((tool) => selectedTools.has(tool));
+
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <p className="text-sm font-medium">Select Tools</p>
       </div>
       <div className="space-y-3">
+        {onSelectAll && (
+          <div className="flex items-start space-x-3">
+            <Checkbox
+              id="select-all"
+              checked={allSelected}
+              onCheckedChange={onSelectAll}
+              className="mt-0.5"
+            />
+            <label
+              htmlFor="select-all"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer flex-1"
+            >
+              Select All
+            </label>
+          </div>
+        )}
         {tools.map((toolId) => {
           const info = toolInfo[toolId];
           return (
