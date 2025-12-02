@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "backend:dev": "cd backend-service && npm run dev",
+    "twd:dev": "VITE_ENABLE_TWD_TESTS=true vite",
+    "dev:all:twd": "npm-run-all --parallel backend:dev twd:dev",
     "dev:all": "npm-run-all --parallel dev backend:dev",
     "install:backend": "cd backend-service && npm install"
   },
@@ -27,7 +29,7 @@
     "react-router": "^7.9.6",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",
-    "twd-js": "^1.1.2"
+    "twd-js": "^1.2.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

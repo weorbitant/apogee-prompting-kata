@@ -9,6 +9,9 @@ describe("Landing Page", () => {
     const logo = screenDom.getByAltText("Orbitant Logo");
     twd.should(logo, "be.visible");
 
+    const screenshot = screenDom.getByRole("img", { name: "Apogee example of betisman giving karma to multiple users" });
+    twd.should(screenshot, "be.visible");
+
     // Check main title
     const title = screenDom.getByRole("heading", { name: "Apogee Prompting Kata" });
     twd.should(title, "be.visible");

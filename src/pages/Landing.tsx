@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import heroImage from "@/api/Hero2650.jpg";
 import logo from "@/api/Logo-Orbitant.svg";
+import apogeeBotScreenshot from "@/assets/bot_example.png";
 
 export default function Landing() {
   return (
@@ -51,6 +52,11 @@ export default function Landing() {
               <p>
                 You can even add your own flavour to the recognitions you make with a personalised message like <code className="bg-muted px-2 py-1 rounded">@user ++ for the amazing help with the blocker I had</code>
               </p>
+              <img
+                src={apogeeBotScreenshot}
+                alt="Apogee example of betisman giving karma to multiple users"
+                className="w-full h-auto"
+              />
             </CardContent>
           </Card>
 
