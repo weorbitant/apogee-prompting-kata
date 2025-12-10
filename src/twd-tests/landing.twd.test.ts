@@ -118,4 +118,49 @@ describe("Landing Page", () => {
     const heroImage = screenDom.getByAltText("Apogee Hero");
     twd.should(heroImage, "be.visible");
   });
+
+  it("should display 'How to Submit Your Solution' card", async () => {
+    await twd.visit("/");
+
+    const cardTitle = screenDom.getByRole("heading", {
+      name: "How to Submit Your Solution",
+    });
+    twd.should(cardTitle, "be.visible");
+
+    // Check for main instruction text
+    const instructionText = screenDom.getByText(/Once you've crafted your perfect prompt/i);
+    twd.should(instructionText, "be.visible");
+
+    // Check for mention of teams folder
+    const teamsFolderText = screenDom.getByText(/Each team has a dedicated folder/i);
+    twd.should(teamsFolderText, "be.visible");
+
+    // Check for step 1
+    const step1 = screenDom.getByText(/Create a new branch/i);
+    twd.should(step1, "be.visible");
+
+    // Check for git commands
+    const gitCheckout = screenDom.getByText(/git checkout -b your-team-name-solution/i);
+    twd.should(gitCheckout, "be.visible");
+
+    // Check for step 2
+    const step2 = screenDom.getByText(/Modify the README.md/i);
+    twd.should(step2, "be.visible");
+
+    // Check for step 3
+    const step3 = screenDom.getByText(/Commit your changes/i);
+    twd.should(step3, "be.visible");
+
+    // Check for step 4
+    const step4 = screenDom.getByText(/Push your branch/i);
+    twd.should(step4, "be.visible");
+
+    // Check for solution format section
+    const solutionFormat = screenDom.getByText("Solution Format");
+    twd.should(solutionFormat, "be.visible");
+
+    // Check for format instructions
+    const formatInstructions = screenDom.getByText(/Please include your final prompt text/i);
+    twd.should(formatInstructions, "be.visible");
+  });
 });

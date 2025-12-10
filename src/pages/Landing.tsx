@@ -190,6 +190,56 @@ export default function Landing() {
             </CardContent>
           </Card>
 
+          {/* How to Submit Your Solution */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-2xl">
+                <h2>How to Submit Your Solution</h2>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p>
+                Once you've crafted your perfect prompt, submit your solution via a Pull Request. Each team has a dedicated folder in the <code className="bg-muted px-2 py-1 rounded">teams/</code> directory with a README file.
+              </p>
+              <ol className="list-decimal list-inside space-y-2 ml-4">
+                <li>
+                  <strong>Create a new branch</strong> from <code className="bg-muted px-2 py-1 rounded">main</code>:
+                  <pre className="bg-muted p-3 rounded-md mt-2 text-sm overflow-x-auto">
+                    <code>git checkout -b your-team-name-solution</code>
+                  </pre>
+                </li>
+                <li>
+                  <strong>Modify the README.md</strong> in your team's folder (e.g., <code className="bg-muted px-2 py-1 rounded">teams/Orión/README.md</code>) with your solution:
+                  <ul className="list-disc list-inside ml-6 mt-2 space-y-1">
+                    <li>Add your final prompt text</li>
+                    <li>Include any additional documentation or notes about your approach</li>
+                    <li>Share what insights you discovered</li>
+                  </ul>
+                </li>
+                <li>
+                  <strong>Commit your changes</strong>:
+                  <pre className="bg-muted p-3 rounded-md mt-2 text-sm overflow-x-auto">
+                    <code>git add teams/YourTeamName/</code><br />
+                    <code>git commit -m "Add [Your Team Name] team solution"</code>
+                  </pre>
+                </li>
+                <li>
+                  <strong>Push your branch</strong> and create a Pull Request:
+                  <pre className="bg-muted p-3 rounded-md mt-2 text-sm overflow-x-auto">
+                    <code>git push origin your-team-name-solution</code>
+                  </pre>
+                  Then open a PR on GitHub targeting the <code className="bg-muted px-2 py-1 rounded">main</code> branch.
+                </li>
+              </ol>
+              <div className="mt-4 p-4 bg-muted rounded-md">
+                <p className="text-sm font-medium mb-2">Solution Format</p>
+                <p className="text-sm">
+                  Please include your final prompt text, any notes about your approach or reasoning, and what insights you discovered.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Useful bits */}
           <Card>
             <CardHeader>
