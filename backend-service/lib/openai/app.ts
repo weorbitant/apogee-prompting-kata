@@ -21,16 +21,6 @@ interface Transaction {
   fromName: string;
   toName: string;
 }
-// Types
-interface UserInput {
-  tools: string;
-  prompt: string;
-}
-
-interface ToolCall {
-  toolName: string;
-  args: Record<string, unknown>;
-}
 
 interface ToolResults {
   getLastWeekLeaderboard?: Leaderboard[];
@@ -52,101 +42,8 @@ async function getTodayLeaderboard(): Promise<Leaderboard[]> {
   return todayLeaderboard as Leaderboard[];
 }
 // --------------------------------------------
-
-async function callModelWithTools(
-  userInput: UserInput,
-  client: OpenAIClientInterface = openAIClient
-): Promise<ToolCall[] | null> {
-  const params: ChatCompletionCreateParams = {
-    model: "gpt-4.1-mini",
-    messages: [
-      {
-        role: "system",
-        content: "You are an assistant that decides which tools to call based on user input."
-      },
-      {
-        role: "user",
-        content: JSON.stringify(userInput)
-      }
-    ],
-    tools: [
-      {
-        type: "function",
-        function: {
-          name: "getLastWeekLeaderboard",
-          description: "Get the leaderboard for the last week",
-          parameters: {
-            type: "object",
-            properties: {},
-            required: []
-          }
-        }
-      },
-      {
-        type: "function",
-        function: {
-          name: "getLastWeekTransactions",
-          description: "Get all transactions from the last week",
-          parameters: {
-            type: "object",
-            properties: {},
-            required: []
-          }
-        }
-      },
-      {
-        type: "function",
-        function: {
-          name: "getTodayLeaderboard",
-          description: "Get the leaderboard for today",
-          parameters: {
-            type: "object",
-            properties: {},
-            required: []
-          }
-        }
-      }
-    ]
-  };
-
-  // For tool selection, we need to collect the full response, so we'll use streaming but collect it
-  const stream = await client.createChatCompletion(params);
-  let fullMessage = "";
-  let toolCalls: ToolCall[] | null = null;
-
-  for await (const chunk of stream) {
-    const delta = chunk.choices[0]?.delta;
-    if (delta?.tool_calls) {
-      // Collect tool calls from stream
-      for (const toolCall of delta.tool_calls) {
-        if (toolCall.type === "function" && toolCall.function?.name) {
-          const toolName = toolCall.function.name;
-          const existingCall = toolCalls?.find(tc => tc.toolName === toolName);
-          if (!existingCall) {
-            if (!toolCalls) toolCalls = [];
-            toolCalls.push({
-              toolName: toolName,
-              args: toolCall.function.arguments ? JSON.parse(toolCall.function.arguments) : {}
-            });
-          }
-        }
-      }
-    }
-    if (delta?.content) {
-      fullMessage += delta.content;
-    }
-  }
-
-  // If we got tool calls, return them; otherwise check if we got a message
-  if (toolCalls && toolCalls.length > 0) {
-    return toolCalls;
-  }
-
-  return null;
-}
-
 async function* callModelToComposeMessage(
-  userInput: UserInput,
+  prompt: string,
   toolResults: ToolResults,
   client: OpenAIClientInterface = openAIClient
 ): AsyncGenerator<string, void, unknown> {
@@ -159,7 +56,7 @@ async function* callModelToComposeMessage(
       },
       {
         role: "user",
-        content: JSON.stringify(userInput)
+        content: prompt
       },
       {
         role: "system",
@@ -179,38 +76,14 @@ async function* callModelToComposeMessage(
 }
 
 // ---- MAIN FUNCTION ------------------------
-export async function* main(tools: string, prompt: string): AsyncGenerator<string, void, unknown> {
-  const input: UserInput = {
-    tools,
-    prompt
+export async function* main(prompt: string): AsyncGenerator<string, void, unknown> {
+  console.log("🔹 Input del usuario:", prompt);
+  const toolResults: ToolResults = {
+    getLastWeekLeaderboard: await getLastWeekLeaderboard(),
+    getLastWeekTransactions: await getLastWeekTransactions(),
+    getTodayLeaderboard: await getTodayLeaderboard(),
   };
 
-  console.log("🔹 Input del usuario:", input);
-
-  // 1. First OpenAI call → ask model which tools to use
-  const toolCalls = await callModelWithTools(input);
-
-  if (!toolCalls) {
-    throw new Error("No tools were selected by the model");
-  }
-
-  console.log("\n🔧 Herramientas seleccionadas por el modelo:");
-
-  // 2. Execute the tools
-  const toolResults: ToolResults = {};
-  for (const call of toolCalls) {
-    if (call.toolName === "getLastWeekLeaderboard") {
-      toolResults.getLastWeekLeaderboard = await getLastWeekLeaderboard();
-    }
-    if (call.toolName === "getLastWeekTransactions") {
-      toolResults.getLastWeekTransactions = await getLastWeekTransactions();
-    }
-    if (call.toolName === "getTodayLeaderboard") {
-      toolResults.getTodayLeaderboard = await getTodayLeaderboard();
-    }
-  }
-
-  // 3. Second call → compose final message (streaming)
-  yield* callModelToComposeMessage(input, toolResults);
+  yield* callModelToComposeMessage(prompt, toolResults);
 }
 

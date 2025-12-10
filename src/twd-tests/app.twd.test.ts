@@ -26,23 +26,19 @@ describe("App Form", () => {
     const submitButton = screenDom.getByRole("button", { name: "Submit" });
     twd.should(submitButton, "be.disabled");
 
-    // Check three checkboxes with the tools
-    const tool1 = screenDom.getByLabelText("Get Last Week Leaderboard");
+    // Check three tools are displayed
+    const tool1 = screenDom.getByText("Get Last Week Leaderboard");
     twd.should(tool1, "be.visible");
 
-    const tool2 = screenDom.getByLabelText("Get Last Week Transactions");
+    const tool2 = screenDom.getByText("Get Last Week Transactions");
     twd.should(tool2, "be.visible");
 
-    const tool3 = screenDom.getByLabelText("Get Today Leaderboard");
+    const tool3 = screenDom.getByText("Get Today Leaderboard");
     twd.should(tool3, "be.visible");
 
     // Fill form
     const textarea = screenDom.getByLabelText("Main prompt input (required)");
     await user.type(textarea, "What are the most interesting insights from last week?");
-
-    await user.click(tool1);
-    await user.click(tool2);
-    await user.click(tool3);
 
     await user.click(submitButton);
 
@@ -72,9 +68,6 @@ describe("App Form", () => {
     const textarea = screenDom.getByLabelText("Main prompt input (required)");
     await user.type(textarea, "Test prompt");
 
-    const tool1 = screenDom.getByLabelText("Get Last Week Leaderboard");
-    await user.click(tool1);
-
     const submitButton = screenDom.getByRole("button", { name: "Submit" });
     await user.click(submitButton);
 
@@ -87,55 +80,13 @@ describe("App Form", () => {
     twd.should(errorHeading, "be.visible");
   });
 
-  it("should select all tools when clicking Select All checkbox", async () => {
-    await twd.visit("/chat");
-
-    const user = userEvent.setup();
-
-    // Get all tool checkboxes - verify they are unchecked initially
-    screenDom.getByRole("checkbox", { name: "Get Last Week Leaderboard", checked: false });
-    screenDom.getByRole("checkbox", { name: "Get Last Week Transactions", checked: false });
-    screenDom.getByRole("checkbox", { name: "Get Today Leaderboard", checked: false });
-
-    // Find and click Select All checkbox
-    const selectAllCheckbox = screenDom.getByRole("checkbox", { name: "Select All", checked: false });
-    twd.should(selectAllCheckbox, "be.visible");
-    await user.click(selectAllCheckbox);
-
-    // Verify Select All checkbox is now checked
-    screenDom.getByRole("checkbox", { name: "Select All", checked: true });
-
-    // Verify all tool checkboxes are now checked
-    screenDom.getByRole("checkbox", { name: "Get Last Week Leaderboard", checked: true });
-    screenDom.getByRole("checkbox", { name: "Get Last Week Transactions", checked: true });
-    screenDom.getByRole("checkbox", { name: "Get Today Leaderboard", checked: true });
-
-    // Click Select All checkbox again to deselect all
-    await user.click(selectAllCheckbox);
-
-    // Verify Select All checkbox is now unchecked
-    screenDom.getByRole("checkbox", { name: "Select All", checked: false });
-
-    // Verify all tool checkboxes are unchecked again
-    const tool1 = screenDom.getByRole("checkbox", { name: "Get Last Week Leaderboard", checked: false });
-    const tool2 = screenDom.getByRole("checkbox", { name: "Get Last Week Transactions", checked: false });
-    const tool3 = screenDom.getByRole("checkbox", { name: "Get Today Leaderboard", checked: false });
-
-    // verify select all is checked after selecting all tools
-    await user.click(tool1);
-    await user.click(tool2);
-    await user.click(tool3);
-
-    // verify select all is checked
-    screenDom.getByRole("checkbox", { name: "Select All", checked: true });
-  });
 
   it("keyboard navigation should work", async () => {
     await twd.visit("/chat");
 
     const user = userEvent.setup();
 
-    // get all tool checkboxes
+    // Test keyboard navigation
     await user.tab();
     const backToLanding = screenDom.getByRole("link", { name: "← Back to Landing" });
     twd.should(backToLanding, "be.focused");
@@ -143,11 +94,5 @@ describe("App Form", () => {
     await user.keyboard('write some text')
     const textarea = screenDom.getByLabelText("Main prompt input (required)");
     twd.should(textarea, "have.text", "write some text");
-    await user.tab();
-    await user.keyboard(' ');
-    screenDom.getByRole("checkbox", { name: "Get Last Week Leaderboard", checked: true });
-    screenDom.getByRole("checkbox", { name: "Get Last Week Transactions", checked: true });
-    screenDom.getByRole("checkbox", { name: "Get Today Leaderboard", checked: true });
-    screenDom.getByRole("checkbox", { name: "Select All", checked: true });
   });
 });

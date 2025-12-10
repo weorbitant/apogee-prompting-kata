@@ -10,7 +10,6 @@ type Tool = "getLastWeekLeaderboard" | "getLastWeekTransactions" | "getTodayLead
 
 export default function App() {
   const [prompt, setPrompt] = useState("");
-  const [selectedTools, setSelectedTools] = useState<Set<Tool>>(new Set());
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<string>("");
@@ -21,29 +20,8 @@ export default function App() {
     "getTodayLeaderboard",
   ];
 
-  const toggleTool = (toolId: Tool) => {
-    setSelectedTools((prev) => {
-      const next = new Set(prev);
-      if (next.has(toolId)) {
-        next.delete(toolId);
-      } else {
-        next.add(toolId);
-      }
-      return next;
-    });
-  };
-
-  const handleSelectAll = () => {
-    const allSelected = tools.every((tool) => selectedTools.has(tool));
-    if (allSelected) {
-      setSelectedTools(new Set());
-    } else {
-      setSelectedTools(new Set(tools));
-    }
-  };
-
   const handleSubmit = async () => {
-    if (!prompt.trim() || selectedTools.size === 0) {
+    if (!prompt.trim()) {
       return;
     }
 
@@ -54,7 +32,7 @@ export default function App() {
     try {
       const stream = processPrompt({
         prompt: prompt.trim(),
-        tools: Array.from(selectedTools),
+        tools: tools,
       });
 
       for await (const chunk of stream) {
@@ -83,7 +61,7 @@ export default function App() {
               </CardTitle>
               <CardDescription>
                 <p className="text-black">
-                  Enter your prompt and select the tools you want to execute
+                  Enter your prompt and the available tools will be executed
                 </p>
               </CardDescription>
             </CardHeader>
@@ -108,14 +86,11 @@ export default function App() {
 
               <ToolSelector
                 tools={tools}
-                selectedTools={selectedTools}
-                onToggleTool={toggleTool}
-                onSelectAll={handleSelectAll}
               />
 
               <Button
                 onClick={handleSubmit}
-                disabled={!prompt.trim() || selectedTools.size === 0 || loading}
+                disabled={!prompt.trim() || loading}
                 className="w-full"
               >
                 {loading ? "Processing..." : "Submit"}

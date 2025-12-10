@@ -12,17 +12,16 @@ app.use(cors());
 app.use(express.json());
 
 interface ProcessRequestBody {
-  tools?: string;
   prompt?: string;
 }
 
 app.post("/api/process", async (req: Request<{}, {}, ProcessRequestBody>, res: Response) => {
   try {
-    const { tools, prompt } = req.body;
+    const { prompt } = req.body;
 
-    if (!tools || !prompt) {
+    if (!prompt) {
       return res.status(400).json({
-        error: "Missing required fields: 'tools' and 'prompt' are required"
+        error: "Missing required fields: 'prompt' is required"
       });
     }
 
@@ -31,7 +30,7 @@ app.post("/api/process", async (req: Request<{}, {}, ProcessRequestBody>, res: R
     res.setHeader("Connection", "keep-alive");
 
     try {
-      for await (const chunk of main(tools, prompt)) {
+      for await (const chunk of main(prompt)) {
         res.write(`data: ${JSON.stringify({ chunk })}\n\n`);
       }
       res.write(`data: ${JSON.stringify({ done: true })}\n\n`);
