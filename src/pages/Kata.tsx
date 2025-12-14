@@ -106,7 +106,7 @@ export default function App() {
               {(response || loading) && (
                 <div className="p-4 rounded-md bg-muted border">
                   <p className="text-sm font-medium mb-2">Response</p>
-                  <p className="text-sm whitespace-pre-wrap">
+                  <p className="text-sm whitespace-pre-wrap wrap-break-word">
                     {response}
                     {loading && <span className="animate-pulse">▊</span>}
                   </p>
