@@ -4,6 +4,7 @@ import { describe, it, beforeEach } from "twd-js/runner";
 describe("App Form", () => {
   beforeEach(() => {
     twd.clearRequestMockRules();
+    twd.clearComponentMocks();
   });
 
   it("should complete the form", async () => {
@@ -93,6 +94,6 @@ describe("App Form", () => {
     await user.tab();
     await user.keyboard('write some text')
     const textarea = screenDom.getByLabelText("Main prompt input (required)");
-    twd.should(textarea, "have.text", "write some text");
+    twd.should(textarea, "have.value", "write some text");
   });
 });

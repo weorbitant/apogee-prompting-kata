@@ -11,7 +11,17 @@ if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_TWD_TESTS === 'true') {
   
   // Initialize TWD with tests and optional configuration
   // Request mocking is automatically initialized
-  initTWD(tests, { open: true, position: 'left' });
+  initTWD(tests, {
+    open: true,
+    position: 'left',
+    serviceWorker: true,
+    serviceWorkerUrl: '/mock-sw.js',
+  });
+
+  // Connect twd-relay browser client
+  const { createBrowserClient } = await import('twd-relay/browser');
+  const client = createBrowserClient({ url: `${window.location.origin}/__twd/ws` });
+  client.connect();
 }
 
 createRoot(document.getElementById('root')!).render(
