@@ -16,6 +16,7 @@ if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_TWD_TESTS === 'true') {
     position: 'left',
     serviceWorker: true,
     serviceWorkerUrl: '/mock-sw.js',
+    search: true,
   });
 
   // Connect twd-relay browser client
